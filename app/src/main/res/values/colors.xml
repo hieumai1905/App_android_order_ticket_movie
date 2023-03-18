@@ -10,4 +10,5 @@
     <color name="choose">#666666</color>
     <color name="unchoose">#292929</color>
     <color name="select_nav">#60b03c</color>
+    <color name="red">#D63A09</color>
 </resources>

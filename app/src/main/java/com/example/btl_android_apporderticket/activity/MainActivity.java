@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.btl_android_apporderticket.R;
-import com.example.btl_android_apporderticket.adapter.PhotoAdapter;
+import com.example.btl_android_apporderticket.adapter.MovieAdapter;
 import com.example.btl_android_apporderticket.handle.IServiceCallback;
 import com.example.btl_android_apporderticket.handle.SlideRunnable;
 import com.example.btl_android_apporderticket.model.Movie;
@@ -41,56 +40,48 @@ public class MainActivity extends AppCompatActivity {
     private List<Photo> listPhoto;
     private Handler myHandler;
     private SlideRunnable myRunnable;
-    private Button btnTest;
     private User userCurrent;
+    private List<Movie> listMovies;
     private IUserService userService;
     private IMovieService movieService;
-    private List<Movie> listMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSlideTop();
-
-        setSlideCenter();
-
-        testCallAPI();
+        initApp();
+        loadData();
     }
 
-    private void testCallAPI() {
-        btnTest = findViewById(R.id.idBookingMovie);
-        btnTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userService = new UserService();
-                movieService = new MovieService();
-//                loginUser();
-//                register();
-                getAllMovies();
-            }
-
-        });
+    private void initApp() {
+        userService = new UserService();
+        movieService = new MovieService();
     }
 
-    private void getAllMovies() {
+    private void loadData() {
         try {
             movieService.getAll(new IServiceCallback<Iterable<Movie>>() {
 
                 @Override
                 public void onDataReceived(Iterable<Movie> data) {
-                    System.out.println("thanh cong");
-                    listMovie = (List<Movie>) data;
+                    System.out.println("Get all movies success");
+                    setDataMovie(data);
                 }
 
                 @Override
                 public void onRequestFailed(Throwable t) {
-                    System.out.println("that bai");
+                    System.out.println("All movies failed");
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setDataMovie(Iterable<Movie> data) {
+        listMovies = (List<Movie>) data;
+        setSlideTop();
+        setSlideCenter();
     }
 
     private void register() {
@@ -158,9 +149,13 @@ public class MainActivity extends AppCompatActivity {
                 page.setScaleY(0.9f + r * 0.1f);
             }
         });
-        PhotoAdapter photoAdapterCenter = new PhotoAdapter(this, GetListPhoto(), R.layout.item_slide_center, R.id.item_image_center);
-        viewPagerCenter.setAdapter(photoAdapterCenter);
-        if (photoAdapterCenter.getItemCount() > 1) viewPagerCenter.setCurrentItem(1);
+
+
+        MovieAdapter movieAdapter = new MovieAdapter(this, listMovies, R.layout.item_slide_center, R.id.item_image_center);
+        viewPagerCenter.setAdapter(movieAdapter);
+
+
+        if (movieAdapter.getItemCount() > 1) viewPagerCenter.setCurrentItem(1);
         viewPagerCenter.setPageTransformer(compositePageTransformer);
     }
 
@@ -171,8 +166,10 @@ public class MainActivity extends AppCompatActivity {
         viewPagerTop.setClipToPadding(false);
         viewPagerTop.setClipChildren(false);
         listPhoto = GetListPhoto();
-        PhotoAdapter photoAdapter = new PhotoAdapter(this, listPhoto, R.layout.item_slide_top, R.id.item_image_top);
-        viewPagerTop.setAdapter(photoAdapter);
+
+        MovieAdapter movieAdapter = new MovieAdapter(this, listMovies, R.layout.item_slide_top, R.id.item_image_top);
+        viewPagerTop.setAdapter(movieAdapter);
+
         indicatorTop.setViewPager(viewPagerTop);
         myRunnable = new SlideRunnable(viewPagerTop, listPhoto);
         myHandler.postDelayed(myRunnable, 2500);
