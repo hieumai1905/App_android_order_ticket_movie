@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="185sp"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="185sp" />
+
+        <me.relex.circleindicator.CircleIndicator3
+            android:id="@+id/indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-30dp"
+            app:ci_drawable="@drawable/bg_indicator" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="45sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="190sp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="37sp"
+            android:layout_marginTop="4sp"
+            android:layout_weight="1"
+            android:background="@color/choose"
+            android:backgroundTint="@color/choose"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="37sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="4sp"
+            android:layout_weight="1"
+            android:background="@color/choose"
+            android:backgroundTint="@color/choose"
+            android:text="Button" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="270sp"
+        android:layout_marginTop="250sp"
+        android:gravity="center">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpagerCenter"
+            android:layout_width="match_parent"
+            android:layout_height="270sp"
+            android:paddingStart="80dp"
+            android:paddingEnd="80dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/idBookingMovie"
+        android:layout_width="200sp"
+        android:layout_height="35sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="580dp"
+        android:background="@color/choose"
+        android:backgroundTint="@color/choose"
+        android:text="Button" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        app:menu="@menu/menu_bottom_nav"
+        app:itemBackground="@color/unchoose"
+        app:itemIconTint="@color/color_select_bottom_nav"
+        app:itemTextColor="@color/color_select_bottom_nav"
+        android:layout_alignParentBottom="true"
+        android:layout_height="51sp"/>
+
+
+</RelativeLayout>
