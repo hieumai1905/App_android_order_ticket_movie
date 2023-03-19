@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+android:background="@color/black"
     tools:context=".activity.MainActivity">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="185sp"
+        android:layout_height="185dp"
         android:orientation="vertical">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="185sp" />
+            android:layout_height="185dp" />
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/indicator"
@@ -28,102 +29,110 @@
 
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="45sp"
+        android:layout_height="45dp"
+        android:layout_marginTop="190dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="190sp">
+        android:background="@color/unchoose">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnNowShow"
             android:layout_width="0dp"
-            android:layout_height="37sp"
-            android:layout_marginTop="4sp"
+            android:layout_height="42dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:background="@color/choose"
             android:backgroundTint="@color/choose"
-            android:text="Button" />
+            android:text="Now show"
+            android:textAllCaps="false"
+            android:textSize="13dp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnComingSoon"
             android:layout_width="0dp"
-            android:layout_height="37sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="4sp"
+            android:layout_height="42dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:text="Comming soon"
             android:layout_weight="1"
-            android:background="@color/choose"
-            android:backgroundTint="@color/choose"
-            android:text="Button" />
+            android:backgroundTint="@color/unchoose"
+            android:textAllCaps="false"
+            android:textSize="13dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="280sp"
-        android:layout_marginTop="250sp"
+        android:layout_height="280dp"
+        android:layout_marginTop="250dp"
         android:gravity="center">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpagerCenter"
             android:layout_width="match_parent"
-            android:layout_height="280sp"
+            android:layout_height="280dp"
             android:paddingStart="80dp"
             android:paddingEnd="80dp" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvTitleMovie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="530dp"
+        android:textColor="@color/white"
         android:text="TextView"
-        android:textSize="20sp"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="20sp"
+        android:layout_height="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="555sp">
+        android:layout_marginTop="555dp">
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tvDurationMovie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2sp"
+            android:layout_marginTop="2dp"
             android:drawableLeft="@drawable/icon_clock"
-            android:drawablePadding="3sp"
+            android:drawableTint="@color/choose"
+            android:drawablePadding="3dp"
+            android:textColor="@color/choose"
             android:text="110 minutes"
-            android:textSize="13sp" />
+            android:textSize="13dp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvAgeRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="5sp"
-            android:layout_marginTop="1sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp"
             android:background="@drawable/textview_border"
-            android:paddingLeft="3sp"
-            android:paddingRight="3sp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:text="C13"
             android:textColor="@color/red"
-            android:textSize="14sp" />
+            android:textSize="13dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/idBookingMovie"
-        android:layout_width="200sp"
-        android:layout_height="35sp"
+        android:layout_width="200dp"
+        android:layout_height="43dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="580dp"
-        android:background="@color/choose"
-        android:backgroundTint="@color/choose"
-        android:text="Button" />
+        android:backgroundTint="@color/select_nav"
+        android:text="Booking" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="51sp"
+        android:layout_height="51dp"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/unchoose"
         app:itemIconTint="@color/color_select_bottom_nav"

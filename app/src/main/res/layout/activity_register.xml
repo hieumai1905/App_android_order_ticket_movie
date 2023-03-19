@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/unchoose"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="595dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvExitRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:drawableRight="@drawable/icon_close"
+            android:drawableTint="@color/white"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="-20dp"
+            android:layout_marginRight="20dp"
+            android:drawableTint="@color/white"
+            android:text="Register"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="28dp"
+            android:textStyle="bold|italic" />
+
+        <EditText
+            android:id="@+id/edtFullname"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Name"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtPasswordRegister"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:drawableRight="@drawable/visible_password"
+            android:drawableTint="#C5BBBB"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtCofirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:drawableRight="@drawable/visible_password"
+            android:drawableTint="#C5BBBB"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Mobile"
+            android:inputType="textPhonetic"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtGender"
+            android:layout_width="170dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Male"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtAge"
+            android:layout_width="170dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="-55dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Age"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector_input"
+            android:hint="Cite/ Province"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#C5BBBB"
+            android:textColorHint="#C5BBBB"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="139dp"
+        android:layout_alignParentEnd="true"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:text="Tôi đã đọc, hiểu và đồng ý với các"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="275dp"
+            android:layout_marginTop="-34dp"
+            android:autoLink="none"
+            android:drawableTint="@color/white"
+            android:text="điều khoản"
+            android:textColor="@color/select_nav" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="37sp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/choose"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textSize="16dp" />
+    </LinearLayout>
+</LinearLayout>

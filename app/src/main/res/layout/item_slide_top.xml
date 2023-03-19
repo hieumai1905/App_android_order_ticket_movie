@@ -6,6 +6,5 @@
         android:id="@+id/item_image_top"
         android:layout_width="match_parent"
         android:layout_height="205sp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        android:scaleType="centerCrop" />
 </LinearLayout>

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,9 +16,13 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private final List<Movie> listMovies;
+    private List<Movie> listMovies;
     private final Context context;
     private static int resourceItem, resourceImage;
+
+    void setListMovies(List<Movie> listMovies) {
+        this.listMovies = listMovies;
+    }
 
     public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage) {
         this.context = context;
