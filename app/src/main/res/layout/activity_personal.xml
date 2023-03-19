@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/unchoose">
+
+
+    <TextView
+        android:id="@+id/tvExitPersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@drawable/icon_close"
+        android:drawableTint="@color/white"
+        android:textColor="@color/white" />
+
+    <TextView
+
+        android:id="@+id/tvRemovePersonal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="360dp"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@drawable/icon_remove_big"
+        android:drawableTint="@color/red"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="48dp"
+        android:drawableTint="@color/white"
+        android:text="Account Information"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_personal" />
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="250dp"
+        android:textStyle="bold"
+        android:textSize="21dp"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="281dp"
+        android:layout_marginTop="320dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvUpdateProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_option_personal_top"
+            android:drawableLeft="@drawable/icon_edit"
+            android:drawableRight="@drawable/chevron_right"
+            android:drawablePadding="11dp"
+            android:drawableTint="@color/choose"
+            android:padding="15dp"
+            android:text="Update Profile"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_option_personal_top"
+            android:drawableLeft="@drawable/icon_look"
+            android:drawableRight="@drawable/chevron_right"
+            android:drawablePadding="11dp"
+            android:drawableTint="@color/choose"
+            android:padding="15dp"
+            android:text="Change Password"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvPaymentHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_option_personal_top"
+            android:drawableLeft="@drawable/icon_history"
+            android:drawableRight="@drawable/chevron_right"
+            android:drawablePadding="11dp"
+            android:drawableTint="@color/choose"
+            android:padding="15dp"
+            android:text="Payment History"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvLogOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_option_personal_top"
+            android:drawableLeft="@drawable/icon_logout"
+            android:drawableRight="@drawable/chevron_right"
+            android:drawablePadding="11dp"
+            android:drawableTint="@color/choose"
+            android:padding="15dp"
+            android:text="Log Out"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+</RelativeLayout>

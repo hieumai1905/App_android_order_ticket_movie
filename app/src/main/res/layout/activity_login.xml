@@ -36,9 +36,9 @@
             android:drawableTint="@color/white"
             android:text="Account Information"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="#E5E9ED"
             android:textSize="28dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
 
         <EditText

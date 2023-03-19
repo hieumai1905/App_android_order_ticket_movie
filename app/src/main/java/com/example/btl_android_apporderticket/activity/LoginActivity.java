@@ -1,6 +1,6 @@
 package com.example.btl_android_apporderticket.activity;
 
-import static com.example.btl_android_apporderticket.define.RequestCode.LOGIN_RESULT_CODE;
+import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGIN_RESULT_CODE;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -82,7 +82,7 @@ public class LoginActivity extends Activity {
                     clearInput();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("user", data);
+                    bundle.putSerializable("userCurrent", data);
                     intent.putExtras(bundle);
                     setResult(LOGIN_RESULT_CODE, intent);
                     finish();

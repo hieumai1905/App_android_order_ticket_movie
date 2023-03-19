@@ -129,7 +129,8 @@
                 android:id="@+id/spnGender"
                 android:layout_width="170dp"
                 android:layout_height="55dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:background="@drawable/selector_input"
                 android:entries="@array/gender">
 
@@ -139,6 +140,7 @@
                 android:id="@+id/edtRegisterBirthday"
                 android:layout_width="160dp"
                 android:layout_height="55dp"
+                android:layout_weight="1"
                 android:layout_gravity="end"
                 android:background="@drawable/selector_input"
                 android:hint="Age"

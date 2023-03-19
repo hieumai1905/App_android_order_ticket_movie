@@ -1,8 +1,9 @@
 package com.example.btl_android_apporderticket.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private String movieId;
     private String title;
     private String language;

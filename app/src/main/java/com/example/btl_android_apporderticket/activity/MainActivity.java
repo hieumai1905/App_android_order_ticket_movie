@@ -1,6 +1,8 @@
 package com.example.btl_android_apporderticket.activity;
 
-import static com.example.btl_android_apporderticket.define.RequestCode.LOGIN_RESULT_CODE;
+import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGIN_RESULT_CODE;
+import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGOUT_CODE;
+import static com.example.btl_android_apporderticket.definefinal.RequestCode.UPDATE_ACCOUNT_RESULT_CODE;
 
 import android.content.Intent;
 import android.os.Build;
@@ -10,7 +12,6 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -31,15 +32,10 @@ import com.example.btl_android_apporderticket.model.Photo;
 import com.example.btl_android_apporderticket.model.User;
 import com.example.btl_android_apporderticket.service.movie.IMovieService;
 import com.example.btl_android_apporderticket.service.movie.MovieService;
-import com.example.btl_android_apporderticket.service.user.IUserService;
-import com.example.btl_android_apporderticket.service.user.UserService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Movie> listMovies;
     private List<Movie> listMovieNowShows;
     private List<Movie> listMovieComingSoons;
-    private IUserService userService;
     private IMovieService movieService;
 
     private TextView titleMovie;
@@ -85,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initApp() {
-        userService = UserService.getInstanceUserService();
         movieService = new MovieService();
         listMovies = new ArrayList<>();
         listMovieNowShows = new ArrayList<>();
@@ -125,8 +119,12 @@ public class MainActivity extends AppCompatActivity {
                         activityResultLauncher.launch(new Intent(MainActivity.this, LoginActivity.class));
 
                         //------------------------------------------------------------------------
-
-
+                    } else {
+                        Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("userCurrent", userCurrent);
+                        intent.putExtras(bundle);
+                        activityResultLauncher.launch(intent);
                     }
                 }
                 break;
@@ -269,7 +267,15 @@ public class MainActivity extends AppCompatActivity {
                 int resultCode = result.getResultCode();
                 switch (resultCode) {
                     case LOGIN_RESULT_CODE: {
-                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("user");
+                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
+                    }
+                    break;
+                    case LOGOUT_CODE: {
+                        userCurrent = null;
+                    }
+                    break;
+                    case UPDATE_ACCOUNT_RESULT_CODE: {
+                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
                     }
                     break;
                 }

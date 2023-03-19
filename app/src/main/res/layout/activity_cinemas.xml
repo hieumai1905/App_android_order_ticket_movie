@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="Cinemas"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_option_personal_top"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="4sp"
+            android:backgroundTint="@color/select_nav"
+            android:text="Hà Nội"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="4sp"
+            android:backgroundTint="@color/unchoose"
+            android:text="TPHCM"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="4sp"
+            android:backgroundTint="@color/unchoose"
+            android:text="ĐÀ NẴNG"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="4sp"
+            android:backgroundTint="@color/unchoose"
+            android:text="HUẾ"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
+
+    </ListView>
+
+</LinearLayout>

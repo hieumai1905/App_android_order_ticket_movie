@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.User;
+import com.example.btl_android_apporderticket.service.user.IUserService;
 import com.example.btl_android_apporderticket.service.user.UserService;
 
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class RegisterActivity extends Activity {
     private Spinner spinner;
     private Button btnRegister;
 
-    private UserService userService;
+    private IUserService userService;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -45,7 +46,6 @@ public class RegisterActivity extends Activity {
         initApp();
         setEvent();
     }
-
 
     private void initApp() {
         userService = UserService.getInstanceUserService();
