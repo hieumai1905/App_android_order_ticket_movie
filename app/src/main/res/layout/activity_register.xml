@@ -35,7 +35,7 @@
             android:textStyle="bold|italic" />
 
         <EditText
-            android:id="@+id/edtFullname"
+            android:id="@+id/edtRegisterName"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -51,7 +51,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/edtEmailRegister"
+            android:id="@+id/edtRegisterEmail"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -67,7 +67,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/edtPasswordRegister"
+            android:id="@+id/edtRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -85,7 +85,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/edtCofirmPassword"
+            android:id="@+id/edtConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -103,7 +103,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/edtPhoneNumber"
+            android:id="@+id/edtRegisterPhone"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -111,45 +111,48 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/selector_input"
             android:hint="Mobile"
-            android:inputType="textPhonetic"
+            android:inputType="phone"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#C5BBBB"
             android:textColorHint="#C5BBBB"
             android:textSize="15sp" />
 
-        <EditText
-            android:id="@+id/edtGender"
-            android:layout_width="170dp"
-            android:layout_height="55dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/selector_input"
-            android:hint="Male"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColor="#C5BBBB"
-            android:textColorHint="#C5BBBB"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spnGender"
+                android:layout_width="170dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/selector_input"
+                android:entries="@array/gender">
+
+            </Spinner>
+
+            <EditText
+                android:id="@+id/edtRegisterBirthday"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:layout_gravity="end"
+                android:background="@drawable/selector_input"
+                android:hint="Age"
+                android:inputType="number"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+
+                android:textColor="#C5BBBB"
+                android:textColorHint="#C5BBBB"
+                android:textSize="15sp" />
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/edtAge"
-            android:layout_width="170dp"
-            android:layout_height="55dp"
-            android:layout_marginLeft="220dp"
-            android:layout_marginTop="-55dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/selector_input"
-            android:hint="Age"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:textColor="#C5BBBB"
-            android:textColorHint="#C5BBBB"
-            android:textSize="15sp" />
-
-        <EditText
-            android:id="@+id/edtAddress"
+            android:id="@+id/edtRegisterAddress"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
@@ -171,34 +174,41 @@
         android:layout_alignParentEnd="true"
         android:orientation="vertical">
 
-        <CheckBox
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="20dp"
-            android:text="Tôi đã đọc, hiểu và đồng ý với các"
-            android:textColor="@color/white" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="275dp"
-            android:layout_marginTop="-34dp"
-            android:autoLink="none"
-            android:drawableTint="@color/white"
-            android:text="điều khoản"
-            android:textColor="@color/select_nav" />
+            <CheckBox
+                android:id="@+id/ckbRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="3dp"
+                android:text="Tôi đã đọc, hiểu và đồng ý với các"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="none"
+                android:drawableTint="@color/white"
+                android:text="điều khoản"
+                android:textColor="@color/select_nav" />
+        </LinearLayout>
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnConfirmRegister"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="37sp"
+            android:layout_marginTop="30sp"
             android:layout_marginRight="20dp"
-            android:backgroundTint="@color/choose"
-            android:text="Login"
+            android:backgroundTint="@drawable/status_button"
+            android:enabled="false"
+            android:text="Register"
             android:textAllCaps="false"
-            android:textSize="16dp" />
+            android:textColor="@color/white"
+            android:textSize="18dp" />
     </LinearLayout>
 </LinearLayout>

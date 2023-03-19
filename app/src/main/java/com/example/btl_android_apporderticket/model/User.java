@@ -2,7 +2,9 @@ package com.example.btl_android_apporderticket.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     @SerializedName("userId")
     private String userId;
 

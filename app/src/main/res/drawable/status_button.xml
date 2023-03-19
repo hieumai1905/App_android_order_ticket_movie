@@ -1,0 +1,5 @@
+<!-- res/drawable/button_enabled.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/select_nav" android:state_enabled="true" />
+    <item android:color="@color/choose" android:state_enabled="false" />
+</selector>

@@ -83,7 +83,7 @@
             android:layout_marginLeft="23dp"
             android:layout_marginTop="10sp"
             android:layout_marginRight="23dp"
-            android:text="Fortgot Password ?"
+            android:text="Forgot Password ?"
             android:textAlignment="textEnd"
             android:textColor="@color/select_nav"
             android:textSize="15sp" />

@@ -1,7 +1,7 @@
 package com.example.btl_android_apporderticket.service;
 
 
-import com.example.btl_android_apporderticket.handle.IServiceCallback;
+import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 
 public interface IGeneralService<T, K> {
     void getById(K key, IServiceCallback<T> callback);

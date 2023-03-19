@@ -3,7 +3,7 @@ package com.example.btl_android_apporderticket.service.user;
 import androidx.annotation.NonNull;
 
 import com.example.btl_android_apporderticket.api.UserAPI;
-import com.example.btl_android_apporderticket.handle.IServiceCallback;
+import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.User;
 
 import java.util.List;
@@ -14,7 +14,18 @@ import retrofit2.Response;
 
 public class UserService implements IUserService {
 
-    public UserService() {
+
+    private static UserService _instance;
+
+    private UserService() {
+
+    }
+
+    public static UserService getInstanceUserService() {
+        if (_instance == null) {
+            _instance = new UserService();
+        }
+        return _instance;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.example.btl_android_apporderticket.service.movie;
 
-import com.example.btl_android_apporderticket.handle.IServiceCallback;
+import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.service.IGeneralService;
 

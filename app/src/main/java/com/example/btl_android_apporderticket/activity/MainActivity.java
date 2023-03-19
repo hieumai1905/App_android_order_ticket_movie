@@ -24,8 +24,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieAdapter;
-import com.example.btl_android_apporderticket.handle.IServiceCallback;
-import com.example.btl_android_apporderticket.handle.SlideRunnable;
+import com.example.btl_android_apporderticket.handle.autorun.SlideRunnable;
+import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Photo;
 import com.example.btl_android_apporderticket.model.User;
@@ -41,6 +41,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initApp() {
-        userService = new UserService();
+        userService = UserService.getInstanceUserService();
         movieService = new MovieService();
         listMovies = new ArrayList<>();
         listMovieNowShows = new ArrayList<>();
@@ -121,22 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // ---------------------------- request login ----------------------------
 
-//                        ActivityResultLauncher<Intent> launcherLoginActivityResult = registerForActivityResult(
-//                                new ActivityResultContracts.StartActivityForResult(),
-//                                result -> {
-//                                    if (result.getResultCode() == RESULT_OK) {
-//                                        Intent data = result.getData();
-//                                        System.out.println("login tra ve data");
-//                                    }
-//                                });
-//
-//                        Intent intent = new Intent(this, LoginActivity.class);
-//                        launcherLoginActivityResult.launch(intent);
-
                         activityResultLauncher.launch(new Intent(MainActivity.this, LoginActivity.class));
-//                        Intent intent = new Intent(this, StartActivity.class);
-//                        startActivityForResult(intent, 1);
-
 
                         //------------------------------------------------------------------------
 
@@ -189,57 +175,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //---------------------------------------load data-------------------------------------------
-
-    private void register() {
-        String birth = "2002-05-19";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = formatter.parse(birth);
-            formatter.applyPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String isoDateString = formatter.format(date);
-        User user = new User("con huong dien", "012345", "huongdien@gmail.com", "huong", "nam", "ha noi", isoDateString);
-        try {
-            userService.add(user, new IServiceCallback<User>() {
-                @Override
-                public void onDataReceived(User data) {
-                    Toast.makeText(MainActivity.this, data.getFullname(), Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onRequestFailed(Throwable t) {
-                    Toast.makeText(MainActivity.this, "false", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loginUser() {
-
-        User user = new User("maihieu@gmail.com", "hieumai1905");
-        try {
-            userService.login(user, new IServiceCallback<User>() {
-                @Override
-                public void onDataReceived(User data) {
-                    System.out.println(data.toString());
-                    userCurrent = data;
-                    System.out.println("login success");
-                }
-
-                @Override
-                public void onRequestFailed(Throwable t) {
-                    System.out.println("login failed");
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //---------------------------------------slide center-------------------------------------------
 
@@ -334,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 int resultCode = result.getResultCode();
                 switch (resultCode) {
                     case LOGIN_RESULT_CODE: {
-                        System.out.println("login tra ve " + resultCode);
+                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("user");
                     }
                     break;
                 }
