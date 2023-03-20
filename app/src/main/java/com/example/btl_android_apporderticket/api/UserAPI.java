@@ -22,7 +22,7 @@ public interface UserAPI {
 
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    UserAPI userAPI = new Retrofit.Builder().baseUrl("http://192.168.0.101:7221/api/").addConverterFactory(GsonConverterFactory.create(gson)).build().create(UserAPI.class);
+    UserAPI userAPI = new Retrofit.Builder().baseUrl("http://172.20.10.2:7221/api/").addConverterFactory(GsonConverterFactory.create(gson)).build().create(UserAPI.class);
 
     @GET("users")
     Call<List<User>> getAllUsers();

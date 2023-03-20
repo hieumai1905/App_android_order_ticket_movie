@@ -20,10 +20,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private final Context context;
     private static int resourceItem, resourceImage;
 
-    void setListMovies(List<Movie> listMovies) {
-        this.listMovies = listMovies;
-    }
-
     public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage) {
         this.context = context;
         listMovies = list;

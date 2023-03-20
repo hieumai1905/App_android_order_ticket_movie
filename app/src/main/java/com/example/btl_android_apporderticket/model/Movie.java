@@ -16,12 +16,11 @@ public class Movie implements Serializable {
     private int ageRating;
     private int genreId;
     private List<String> casts;
-    private List<String> idCinemas;
 
     public Movie() {
     }
 
-    public Movie(String movieId, String title, String language, String country, String description, String releasedDate, String director, int duration, String poster, int ageRating, int genreId, List<String> casts, List<String> idCinemas) {
+    public Movie(String movieId, String title, String language, String country, String description, String releasedDate, String director, int duration, String poster, int ageRating, int genreId, List<String> casts) {
         this.movieId = movieId;
         this.title = title;
         this.language = language;
@@ -34,7 +33,6 @@ public class Movie implements Serializable {
         this.ageRating = ageRating;
         this.genreId = genreId;
         this.casts = casts;
-        this.idCinemas = idCinemas;
     }
 
     public String getMovieId() {
@@ -133,16 +131,21 @@ public class Movie implements Serializable {
         this.casts = casts;
     }
 
-    public List<String> getIdCinemas() {
-        return idCinemas;
-    }
-
-    public void setIdCinemas(List<String> idCinemas) {
-        this.idCinemas = idCinemas;
-    }
-
     @Override
     public String toString() {
-        return "Movie{" + "movieId='" + movieId + '\'' + ", title='" + title + '\'' + ", language='" + language + '\'' + ", country='" + country + '\'' + ", description='" + description + '\'' + ", releasedDate='" + releasedDate + '\'' + ", director='" + director + '\'' + ", duration=" + duration + ", poster='" + poster + '\'' + ", ageRating=" + ageRating + ", genreId=" + genreId + ", casts=" + casts + ", idCinemas=" + idCinemas + '}';
+        return "Movie{" +
+                "movieId='" + movieId + '\'' +
+                ", title='" + title + '\'' +
+                ", language='" + language + '\'' +
+                ", country='" + country + '\'' +
+                ", description='" + description + '\'' +
+                ", releasedDate='" + releasedDate + '\'' +
+                ", director='" + director + '\'' +
+                ", duration=" + duration +
+                ", poster='" + poster + '\'' +
+                ", ageRating=" + ageRating +
+                ", genreId=" + genreId +
+                ", casts=" + casts +
+                '}';
     }
 }

@@ -24,6 +24,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnCinemaHaNoi"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="4sp"
@@ -33,6 +34,7 @@
             android:textSize="15dp" />
 
         <Button
+            android:id="@+id/btnCinemaHCM"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="4sp"
@@ -42,6 +44,7 @@
             android:textSize="15dp" />
 
         <Button
+            android:id="@+id/btnCinemaDaNang"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="4sp"
@@ -51,6 +54,7 @@
             android:textSize="15dp" />
 
         <Button
+            android:id="@+id/btnCinemaHue"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="4sp"
@@ -62,6 +66,7 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/lvCinema"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="15dp">

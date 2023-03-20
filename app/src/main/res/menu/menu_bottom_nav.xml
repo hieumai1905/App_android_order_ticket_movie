@@ -5,7 +5,7 @@
         android:icon="@drawable/icon_home"
         android:title="HOME" />
     <item
-        android:id="@+id/nav_showtime"
+        android:id="@+id/nav_cinema"
         android:icon="@drawable/icon_cinema"
         android:title="SHOWTIMES" />
     <item
