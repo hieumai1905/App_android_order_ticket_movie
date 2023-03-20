@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initApp() {
-        movieService = new MovieService();
+        movieService = MovieService.getInstanceMovieService();
         listMovies = new ArrayList<>();
         listMovieNowShows = new ArrayList<>();
         listMovieComingSoons = new ArrayList<>();
@@ -106,9 +106,18 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     System.out.println("Home");
                     break;
-                case R.id.nav_showtime:
-                    System.out.println("Showtime");
-                    break;
+                case R.id.nav_cinema: {
+                    System.out.println("Cinema");
+                    // ---------------------------- request Cinema ----------------------------
+                    activityResultLauncher.launch(new Intent(MainActivity.this, CinemaActivity.class));
+
+                    Intent intent = new Intent(MainActivity.this, CinemaActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("userCurrent", userCurrent);
+                    intent.putExtras(bundle);
+                    activityResultLauncher.launch(intent);
+                }
+                break;
                 case R.id.nav_personal: {
                     System.out.println("Personal");
                     if (userCurrent == null) {
@@ -159,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
     private void setDataMovie(Iterable<Movie> data) {
         listMovies = (List<Movie>) data;
         for (Movie movie : listMovies) {
-            // neu ngay hien tai lon hon ngay bat dau chieu thi phim dang chieu
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if (movie.getReleasedDate().compareTo(String.valueOf(LocalDateTime.now())) < 0) {
                     listMovieNowShows.add(movie);
