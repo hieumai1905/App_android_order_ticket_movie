@@ -26,6 +26,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieAdapter;
 import com.example.btl_android_apporderticket.handle.autorun.SlideRunnable;
+import com.example.btl_android_apporderticket.handle.getdata.HandleMovie;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Photo;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPagerTop;
     private ViewPager2 viewPagerCenter;
     private CircleIndicator3 indicatorTop;
-    private List<Photo> listPhoto;
+    private List<Photo> listPhotos;
     private Handler myHandler;
     private SlideRunnable myRunnable;
 
@@ -81,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initApp() {
         movieService = MovieService.getInstanceMovieService();
+<<<<<<< HEAD
+=======
+        listPhotos = new ArrayList<>();
+>>>>>>> 0805cb4b816d84520c295a6e49e8a4129bad3733
         listMovies = new ArrayList<>();
         listMovieNowShows = new ArrayList<>();
         listMovieComingSoons = new ArrayList<>();
@@ -246,13 +251,11 @@ public class MainActivity extends AppCompatActivity {
         indicatorTop = findViewById(R.id.indicator);
         viewPagerTop.setClipToPadding(false);
         viewPagerTop.setClipChildren(false);
-        listPhoto = GetListPhoto();
-
+        listPhotos = HandleMovie.getPhotoOfMovie(listMovies);
         MovieAdapter movieAdapter = new MovieAdapter(this, listMovies, R.layout.item_slide_top, R.id.item_image_top);
         viewPagerTop.setAdapter(movieAdapter);
-
         indicatorTop.setViewPager(viewPagerTop);
-        myRunnable = new SlideRunnable(viewPagerTop, listPhoto);
+        myRunnable = new SlideRunnable(viewPagerTop, listPhotos);
         myHandler.postDelayed(myRunnable, 2500);
         viewPagerTop.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -292,16 +295,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //---------------------------------------------------------------------------------------------
-
-
-    private List<Photo> GetListPhoto() {
-        List<Photo> lists = new ArrayList<>();
-        lists.add(new Photo("https://i.pinimg.com/564x/fe/01/68/fe0168e6131ff32b6de118c6fa824b10.jpg"));
-        lists.add(new Photo("https://i.pinimg.com/564x/03/c0/17/03c017c2000802a34a48808e6eb444ae.jpg"));
-        lists.add(new Photo("https://i.pinimg.com/564x/11/a3/c9/11a3c9e9bc20cb92b76126ce0748eedd.jpg"));
-        lists.add(new Photo("https://i.pinimg.com/564x/0e/5b/5c/0e5b5c1818f4c238130388d4cafb5e57.jpg"));
-        lists.add(new Photo("https://i.pinimg.com/564x/17/74/5e/17745e8bf641b87bb0687a5781a6f980.jpg"));
-        lists.add(new Photo("https://i.pinimg.com/564x/be/64/18/be64183c8db691b0b2db185bb9f13aca.jpg"));
-        return lists;
-    }
 }

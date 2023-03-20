@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 public interface MovieAPI {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    MovieAPI movieAPI = new Retrofit.Builder().baseUrl("http://192.168.0.101:7221/api/")
+    MovieAPI movieAPI = new Retrofit.Builder().baseUrl("http://172.20.10.2:7221/api/")
             .addConverterFactory(GsonConverterFactory.create(gson)).build().create(MovieAPI.class);
 
     @GET("movies")

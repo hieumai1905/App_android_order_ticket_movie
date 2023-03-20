@@ -5,10 +5,11 @@
     <color name="purple_700">#DBDADD</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#222121</color>
     <color name="white">#FFFFFFFF</color>
     <color name="choose">#666666</color>
     <color name="unchoose">#292929</color>
     <color name="select_nav">#6AB648</color>
     <color name="red">#D63A09</color>
+    <color name="text_color_gray">#979291</color>
 </resources>

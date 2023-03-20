@@ -2,13 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imgCinema"
+<<<<<<< HEAD
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background" />
+=======
+        android:layout_marginLeft="5sp"
+        android:layout_width="105dp"
+        android:scaleType="centerCrop"
+        android:layout_height="105sp"
+        android:layout_marginBottom="10sp"
+        android:src="@drawable/image_cinema_pattern" />
+>>>>>>> 0805cb4b816d84520c295a6e49e8a4129bad3733
 
     <LinearLayout
         android:layout_width="282dp"
@@ -23,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:text="Name Cinema"
+            android:textColor="#DCD5D5"
             android:textSize="18dp"
             android:textStyle="bold" />
 
@@ -30,8 +41,11 @@
             android:id="@+id/tvAddressCinema"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10sp"
             android:layout_marginEnd="5dp"
+            android:textColor="@color/text_color_gray"
+            android:drawableTint="@color/text_color_gray"
             android:drawableStart="@drawable/icon_place"
             android:text="Address cinema"
             android:textSize="14dp" />

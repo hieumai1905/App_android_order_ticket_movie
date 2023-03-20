@@ -33,6 +33,13 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.PersonalActivity" />
         <activity android:name=".activity.CinemaActivity" />
+<<<<<<< HEAD
+=======
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+>>>>>>> 0805cb4b816d84520c295a6e49e8a4129bad3733
     </application>
 
 </manifest>
