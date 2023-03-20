@@ -33,7 +33,7 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.PersonalActivity" />
         <activity android:name=".activity.CinemaActivity" />
-
+        <activity android:name=".activity.DetailMovieActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

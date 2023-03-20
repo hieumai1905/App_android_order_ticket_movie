@@ -6,9 +6,21 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tvBackCinema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:drawableLeft="@drawable/icon_back_page"
+        android:drawableTint="@color/white" />
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="-15dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="Cinemas"
@@ -24,12 +36,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCinemaHaNoi"
+            android:id="@+id/btnCinemaAll"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_margin="4sp"
             android:backgroundTint="@color/select_nav"
+            android:text="All"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="15dp" />
+        <Button
+            android:id="@+id/btnCinemaHaNoi"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="4sp"
+            android:backgroundTint="@color/unchoose"
             android:text="Hà Nội"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="15dp" />
 
@@ -39,7 +62,8 @@
             android:layout_height="45dp"
             android:layout_margin="4sp"
             android:backgroundTint="@color/unchoose"
-            android:text="TPHCM"
+            android:text="HCM"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="15dp" />
 
@@ -49,17 +73,8 @@
             android:layout_height="45dp"
             android:layout_margin="4sp"
             android:backgroundTint="@color/unchoose"
-            android:text="ĐÀ NẴNG"
-            android:textAllCaps="false"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/btnCinemaHue"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_margin="4sp"
-            android:backgroundTint="@color/unchoose"
-            android:text="HUẾ"
+            android:text="Đà Nẵng"
+            android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="15dp" />
 

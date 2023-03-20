@@ -1,4 +1,4 @@
-package com.example.btl_android_apporderticket.comparator.movie;
+package com.example.btl_android_apporderticket.handle.comparator.movie;
 
 import com.example.btl_android_apporderticket.model.Movie;
 

@@ -11,11 +11,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface CinemaAPI {
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    CinemaAPI cinemaAPI = new Retrofit.Builder().baseUrl("http://172.20.10.2:7221/api/")
+    CinemaAPI cinemaAPI = new Retrofit.Builder().baseUrl("http://192.168.0.101:8080/api/")
             .addConverterFactory(GsonConverterFactory.create(gson)).build().create(CinemaAPI.class);
 
     @GET("cinemas")
@@ -26,4 +27,7 @@ public interface CinemaAPI {
 
     @GET("cinemas/movies")
     Call<List<Cinema>> getAllCinemaShowMovieByMovieId(@Path("id") String movieId);
+
+    @GET("cinemas/search/cities/")
+    Call<List<Cinema>> getCinemaByCity(@Query("city") String cityName);
 }

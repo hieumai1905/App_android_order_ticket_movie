@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.btl_android_apporderticket.R;
+import com.example.btl_android_apporderticket.handle.hashcode.HashCodeToLong;
 import com.example.btl_android_apporderticket.model.Cinema;
 
 import java.util.List;
@@ -35,7 +36,8 @@ public class CinemaAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return Long.parseLong(listCinemas.get(i).getIdCinema());
+        String id = listCinemas.get(i).getIdCinema();
+        return HashCodeToLong.getHashedId(id);
     }
 
     @Override
@@ -44,7 +46,6 @@ public class CinemaAdapter extends BaseAdapter {
         if (view == null) {
             viewCinema = View.inflate(viewGroup.getContext(), R.layout.item_cinema, null);
         }
-
         Cinema cinema = listCinemas.get(i);
         ((TextView) viewCinema.findViewById(R.id.tvNameCinema)).setText(cinema.getNameCinema());
         ((TextView) viewCinema.findViewById(R.id.tvAddressCinema)).setText(cinema.getAddressCinema());

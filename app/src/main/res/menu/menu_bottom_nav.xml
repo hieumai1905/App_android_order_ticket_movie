@@ -7,7 +7,7 @@
     <item
         android:id="@+id/nav_cinema"
         android:icon="@drawable/icon_cinema"
-        android:title="SHOWTIMES" />
+        android:title="CINEMAS" />
     <item
         android:id="@+id/nav_personal"
         android:icon="@drawable/icon_info"

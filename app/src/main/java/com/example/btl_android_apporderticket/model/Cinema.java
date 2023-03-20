@@ -14,10 +14,10 @@ public class Cinema implements Serializable {
     public Cinema() {
     }
 
-    public Cinema(String idCinema, String nameCinema, String addressCinema, String imageCinema, String phoneCinema, List<Movie> movies) {
+    public Cinema(String idCinema, String nameCinema, String addresCinama, String imageCinema, String phoneCinema, List<Movie> movies) {
         this.idCinema = idCinema;
         this.nameCinema = nameCinema;
-        this.addressCinema = addressCinema;
+        this.addressCinema = addresCinama;
         this.phoneCinema = phoneCinema;
         this.imageCinema = imageCinema;
         this.movies = movies;
@@ -76,7 +76,7 @@ public class Cinema implements Serializable {
         return "Cinema{" +
                 "idCinema='" + idCinema + '\'' +
                 ", nameCinema='" + nameCinema + '\'' +
-                ", addressCinema='" + addressCinema + '\'' +
+                ", addresCinama='" + addressCinema + '\'' +
                 ", imageCinema='" + imageCinema + '\'' +
                 ", phoneCinema='" + phoneCinema + '\'' +
                 ", movies=" + movies +

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
 import com.example.btl_android_apporderticket.model.Movie;
 
 import java.util.List;
@@ -18,13 +19,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private List<Movie> listMovies;
     private final Context context;
+    private ICallbackEventClickMovie callbackEventClickMovie;
     private static int resourceItem, resourceImage;
 
-    public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage) {
+    public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage, ICallbackEventClickMovie callbackEventClickMovie) {
         this.context = context;
         listMovies = list;
         MovieAdapter.resourceItem = resourceItem;
         MovieAdapter.resourceImage = resourceImage;
+        this.callbackEventClickMovie = callbackEventClickMovie;
     }
 
     @NonNull
@@ -38,11 +41,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = listMovies.get(position);
         if (movie != null) {
-            Glide.with(context).load(movie.getPoster()).centerCrop().into(holder.imageView);
+            String url = movie.getPoster();
+            if (url == null || url.equals("N/A") || url.equals("")) {
+                url = "https://i.pinimg.com/564x/86/87/f3/8687f3c811454852d118abd25181cf22.jpg";
+            }
+            Glide.with(context).load(url).centerCrop().into(holder.imageView);
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     System.out.println(movie.toString());
+                    callbackEventClickMovie.onSelectMovie(movie);
                 }
             });
         }

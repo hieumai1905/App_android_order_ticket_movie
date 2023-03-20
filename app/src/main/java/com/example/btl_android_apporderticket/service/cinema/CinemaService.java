@@ -81,4 +81,24 @@ public class CinemaService implements ICinemaService {
     public void remove(String key, IServiceCallback<Boolean> callback) {
 
     }
+
+    @Override
+    public void getCinemaByCity(String cityName, IServiceCallback<Iterable<Cinema>> callback) {
+        CinemaAPI.cinemaAPI.getCinemaByCity(cityName).enqueue(new Callback<List<Cinema>>() {
+            @Override
+            public void onResponse(Call<List<Cinema>> call, Response<List<Cinema>> response) {
+                if (response.isSuccessful()) {
+                    Iterable<Cinema> cinemas = response.body();
+                    callback.onDataReceived(cinemas);
+                } else {
+                    callback.onRequestFailed(new Exception("Response code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Cinema>> call, Throwable t) {
+                callback.onRequestFailed(t);
+            }
+        });
+    }
 }

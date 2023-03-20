@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -26,7 +27,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieAdapter;
 import com.example.btl_android_apporderticket.handle.autorun.SlideRunnable;
+import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
 import com.example.btl_android_apporderticket.handle.getdata.HandleMovie;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Photo;
@@ -96,10 +99,15 @@ public class MainActivity extends AppCompatActivity {
 
         btnNowShow.setOnClickListener(v -> {
 //            setSlideCenter(listMovieNowShows);
+            // set backgroundTint cho kieu drawable choose
+            btnNowShow.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.choose));
+            btnComingSoon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.unchoose));
             changeMovie(listMovieNowShows);
         });
         btnComingSoon.setOnClickListener(v -> {
 //            setSlideCenter(listMovieComingSoons);
+            btnComingSoon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.choose));
+            btnNowShow.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.unchoose));
             changeMovie(listMovieComingSoons);
         });
 
@@ -107,16 +115,17 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     System.out.println("Home");
+                    loadData();
                     break;
                 case R.id.nav_cinema: {
                     System.out.println("Cinema");
                     // ---------------------------- request Cinema ----------------------------
-                    activityResultLauncher.launch(new Intent(MainActivity.this, CinemaActivity.class));
-
                     Intent intent = new Intent(MainActivity.this, CinemaActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("userCurrent", userCurrent);
-                    intent.putExtras(bundle);
+                    if (userCurrent != null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("userCurrent", userCurrent);
+                        intent.putExtras(bundle);
+                    }
                     activityResultLauncher.launch(intent);
                 }
                 break;
@@ -200,7 +209,14 @@ public class MainActivity extends AppCompatActivity {
                 page.setScaleY(0.9f + r * 0.1f);
             }
         });
-        MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center);
+        MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center, new ICallbackEventClickMovie() {
+            @Override
+            public void onSelectMovie(Movie movie) {
+                viewDetailMovie(movie);
+
+            }
+
+        });
         viewPagerCenter.setAdapter(movieAdapter);
 
         if (movieAdapter.getItemCount() > 0 && movieAdapter.getItemCount() < 2) {
@@ -228,7 +244,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void changeMovie(List<Movie> movies) {
-        MovieAdapter movieAdapter = new MovieAdapter(this, movies, R.layout.item_slide_center, R.id.item_image_center);
+        MovieAdapter movieAdapter = new MovieAdapter(this, movies,
+                R.layout.item_slide_center, R.id.item_image_center,
+                movie -> viewDetailMovie(movie));
         if (movieAdapter.getItemCount() > 0 && movieAdapter.getItemCount() < 2) {
             updateUIMovie(movieAdapter.getItem(0));
         } else {
@@ -237,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
         }
         viewPagerCenter.setAdapter(movieAdapter);
     }
+
 
     //---------------------------------------slide center-------------------------------------------
 
@@ -249,7 +268,9 @@ public class MainActivity extends AppCompatActivity {
         viewPagerTop.setClipToPadding(false);
         viewPagerTop.setClipChildren(false);
         listPhotos = HandleMovie.getPhotoOfMovie(listMovies);
-        MovieAdapter movieAdapter = new MovieAdapter(this, listMovies, R.layout.item_slide_top, R.id.item_image_top);
+        MovieAdapter movieAdapter = new MovieAdapter(this, listMovies,
+                R.layout.item_slide_top, R.id.item_image_top,
+                movie -> viewDetailMovie(movie));
         viewPagerTop.setAdapter(movieAdapter);
         indicatorTop.setViewPager(viewPagerTop);
         myRunnable = new SlideRunnable(viewPagerTop, listPhotos);
@@ -269,27 +290,35 @@ public class MainActivity extends AppCompatActivity {
     // --------------------------------------handle result ----------------------------------------
 
     private void registerHandlerResultActivity() {
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                int resultCode = result.getResultCode();
-                switch (resultCode) {
-                    case LOGIN_RESULT_CODE: {
-                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
-                    }
-                    break;
-                    case LOGOUT_CODE: {
-                        userCurrent = null;
-                    }
-                    break;
-                    case UPDATE_ACCOUNT_RESULT_CODE: {
-                        userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
-                    }
-                    break;
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            int resultCode = result.getResultCode();
+            switch (resultCode) {
+                case LOGIN_RESULT_CODE: {
+                    userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
                 }
+                break;
+                case LOGOUT_CODE: {
+                    userCurrent = null;
+                    DataBuffer.ID_USER_CURRENT = null;
+                }
+                break;
+                case UPDATE_ACCOUNT_RESULT_CODE: {
+                    userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
+                }
+                break;
             }
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
         });
     }
-
     //---------------------------------------------------------------------------------------------
+
+    private void viewDetailMovie(Movie movie) {
+        Intent intent = new Intent(this, DetailMovieActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("movie-show", movie);
+        bundle.putSerializable("userCurrent", userCurrent);
+        intent.putExtras(bundle);
+        activityResultLauncher.launch(intent);
+    }
+
 }

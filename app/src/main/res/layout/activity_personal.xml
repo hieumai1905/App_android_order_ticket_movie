@@ -61,12 +61,15 @@
         android:layout_height="281dp"
         android:layout_marginTop="320dp"
         android:orientation="vertical">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#636261" />
+        />
         <TextView
             android:id="@+id/tvUpdateProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_option_personal_top"
             android:drawableLeft="@drawable/icon_edit"
             android:drawableRight="@drawable/chevron_right"
             android:drawablePadding="11dp"
@@ -75,12 +78,16 @@
             android:text="Update Profile"
             android:textColor="@color/white"
             android:textSize="14dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#636261" />
+        />
 
         <TextView
             android:id="@+id/tvChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_option_personal_top"
             android:drawableLeft="@drawable/icon_look"
             android:drawableRight="@drawable/chevron_right"
             android:drawablePadding="11dp"
@@ -89,12 +96,16 @@
             android:text="Change Password"
             android:textColor="@color/white"
             android:textSize="14dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#636261" />
+        />
 
         <TextView
             android:id="@+id/tvPaymentHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_option_personal_top"
             android:drawableLeft="@drawable/icon_history"
             android:drawableRight="@drawable/chevron_right"
             android:drawablePadding="11dp"
@@ -103,12 +114,16 @@
             android:text="Payment History"
             android:textColor="@color/white"
             android:textSize="14dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#636261" />
+        />
 
         <TextView
             android:id="@+id/tvLogOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_option_personal_top"
             android:drawableLeft="@drawable/icon_logout"
             android:drawableRight="@drawable/chevron_right"
             android:drawablePadding="11dp"
@@ -117,6 +132,11 @@
             android:text="Log Out"
             android:textColor="@color/white"
             android:textSize="14dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:background="#636261" />
+        />
 
     </LinearLayout>
 </RelativeLayout>

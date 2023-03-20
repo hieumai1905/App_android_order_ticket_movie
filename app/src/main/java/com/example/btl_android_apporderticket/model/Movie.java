@@ -1,7 +1,6 @@
 package com.example.btl_android_apporderticket.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Movie implements Serializable {
     private String movieId;
@@ -15,12 +14,10 @@ public class Movie implements Serializable {
     private String poster;
     private int ageRating;
     private int genreId;
-    private List<String> casts;
-
     public Movie() {
     }
 
-    public Movie(String movieId, String title, String language, String country, String description, String releasedDate, String director, int duration, String poster, int ageRating, int genreId, List<String> casts) {
+    public Movie(String movieId, String title, String language, String country, String description, String releasedDate, String director, int duration, String poster, int ageRating, int genreId) {
         this.movieId = movieId;
         this.title = title;
         this.language = language;
@@ -32,7 +29,6 @@ public class Movie implements Serializable {
         this.poster = poster;
         this.ageRating = ageRating;
         this.genreId = genreId;
-        this.casts = casts;
     }
 
     public String getMovieId() {
@@ -123,14 +119,6 @@ public class Movie implements Serializable {
         this.genreId = genreId;
     }
 
-    public List<String> getCasts() {
-        return casts;
-    }
-
-    public void setCasts(List<String> casts) {
-        this.casts = casts;
-    }
-
     @Override
     public String toString() {
         return "Movie{" +
@@ -145,7 +133,6 @@ public class Movie implements Serializable {
                 ", poster='" + poster + '\'' +
                 ", ageRating=" + ageRating +
                 ", genreId=" + genreId +
-                ", casts=" + casts +
                 '}';
     }
 }

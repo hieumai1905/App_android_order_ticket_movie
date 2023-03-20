@@ -1,19 +1,23 @@
 package com.example.btl_android_apporderticket.model;
 
+import java.util.List;
+
 public class Cast {
     private String castId;
     private String name;
     private String birthDay;
     private String nationality;
+    private List<Movie> movies;
 
     public Cast() {
     }
 
-    public Cast(String castId, String name, String birthDay, String nationality) {
+    public Cast(String castId, String name, String birthDay, String nationality, List<Movie> movies) {
         this.castId = castId;
         this.name = name;
         this.birthDay = birthDay;
         this.nationality = nationality;
+        this.movies = movies;
     }
 
     public String getCastId() {
@@ -48,6 +52,14 @@ public class Cast {
         this.nationality = nationality;
     }
 
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
+    }
+
     @Override
     public String toString() {
         return "Cast{" +
@@ -55,6 +67,7 @@ public class Cast {
                 ", name='" + name + '\'' +
                 ", birthDay='" + birthDay + '\'' +
                 ", nationality='" + nationality + '\'' +
+                ", movies=" + movies +
                 '}';
     }
 }
