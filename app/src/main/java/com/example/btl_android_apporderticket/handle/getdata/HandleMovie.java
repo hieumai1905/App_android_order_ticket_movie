@@ -12,7 +12,12 @@ public class HandleMovie {
         try {
             if(listMovies != null) {
                 for (Movie movie : listMovies) {
-                    photos.add(new Photo(movie.getPoster()));
+                    String url = movie.getPoster();
+                    if(url == null || url.isEmpty() || url.equals("N/A") || url.equals("")){
+                        photos.add(new Photo("https://i.pinimg.com/564x/86/87/f3/8687f3c811454852d118abd25181cf22.jpg"));
+                    } else {
+                        photos.add(new Photo(url));
+                    }
                 }
             }
         } catch(Exception e) {
