@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <TextView
+        android:layout_width="166dp"
+        android:layout_height="116dp"
+        android:drawableBottom="@drawable/icon_rada"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="270dp"
+        android:drawableTint="#A6A6A6"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="122dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_marginTop="400dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="No Data Found/ Displayed/ Available"
+        android:textColor="#D6D3D3" />
+
+    <Button
+        android:id="@+id/btnBookTicketDetailMovie"
+        android:layout_width="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="422dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/select_nav"
+        android:text="Try Again"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="15dp" />
+
+
+
+</RelativeLayout>

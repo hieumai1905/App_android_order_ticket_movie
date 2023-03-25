@@ -1,8 +1,7 @@
 package com.example.btl_android_apporderticket.api;
 
+import com.example.btl_android_apporderticket.config.Configuration;
 import com.example.btl_android_apporderticket.model.Movie;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -14,10 +13,9 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieAPI {
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    MovieAPI movieAPI = new Retrofit.Builder().baseUrl("http://192.168.0.101:8080/api/")
-            .addConverterFactory(GsonConverterFactory.create(gson)).build().create(MovieAPI.class);
+    MovieAPI movieAPI = new Retrofit.Builder().baseUrl(Configuration.URL_BASE)
+            .addConverterFactory(GsonConverterFactory.create(Configuration.gson)).build().create(MovieAPI.class);
 
     @GET("movies")
     Call<List<Movie>> getAllMovies();

@@ -1,6 +1,7 @@
 package com.example.btl_android_apporderticket.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
@@ -119,6 +120,13 @@ public class CinemaActivity extends Activity {
             Cinema cinema = listCinemaCurrent.get(position);
             DataBuffer.ID_CINEMA_CURRENT = cinema.getIdCinema();
             System.out.println(cinema.toString());
+
+            Intent intent = new Intent(CinemaActivity.this, ChooseMovieInCinemaActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("cinema-current", cinema);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
         });
         tvBackCinema.setOnClickListener(v -> {
             finish();

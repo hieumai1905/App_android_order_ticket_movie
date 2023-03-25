@@ -2,14 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/icon_home"
-        android:title="HOME" />
+        android:icon="@drawable/icon_home" />
     <item
         android:id="@+id/nav_cinema"
         android:icon="@drawable/icon_cinema"
-        android:title="CINEMAS" />
+        />
+    <item
+        android:id="@+id/nav_movie"
+        android:icon="@drawable/icon_movie"
+        />
     <item
         android:id="@+id/nav_personal"
         android:icon="@drawable/icon_info"
-        android:title="PSERSONAL" />
+       />
 </menu>

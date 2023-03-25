@@ -1,8 +1,9 @@
 package com.example.btl_android_apporderticket.activity;
 
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGIN_RESULT_CODE;
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGOUT_CODE;
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.UPDATE_ACCOUNT_RESULT_CODE;
+
+import static com.example.btl_android_apporderticket.config.Configuration.LOGIN_RESULT_CODE;
+import static com.example.btl_android_apporderticket.config.Configuration.LOGOUT_CODE;
+import static com.example.btl_android_apporderticket.config.Configuration.UPDATE_ACCOUNT_RESULT_CODE;
 
 import android.content.Intent;
 import android.os.Build;
@@ -13,20 +14,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieAdapter;
 import com.example.btl_android_apporderticket.handle.autorun.SlideRunnable;
+import com.example.btl_android_apporderticket.handle.autorun.Transformer;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
 import com.example.btl_android_apporderticket.handle.getdata.HandleMovie;
 import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Movie> listMovies;
     private List<Movie> listMovieNowShows;
-    private List<Movie> listMovieComingSoons;
+    private List<Movie> listMovieComingSoon;
     private IMovieService movieService;
 
     private TextView titleMovie;
@@ -68,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnNowShow;
     private Button btnComingSoon;
+    private Button btnBookingMovie;
 
     private BottomNavigationView bottomNavigationView;
 
@@ -77,10 +75,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(this, StartActivity.class));
         initApp();
+        setEvent();
         loadData();
         registerHandlerResultActivity();
     }
+
 
 
     private void initApp() {
@@ -88,27 +89,28 @@ public class MainActivity extends AppCompatActivity {
         listPhotos = new ArrayList<>();
         listMovies = new ArrayList<>();
         listMovieNowShows = new ArrayList<>();
-        listMovieComingSoons = new ArrayList<>();
+        listMovieComingSoon = new ArrayList<>();
         titleMovie = findViewById(R.id.tvTitleMovie);
         durationMovie = findViewById(R.id.tvDurationMovie);
         ageRating = findViewById(R.id.tvAgeRating);
         btnComingSoon = findViewById(R.id.btnComingSoon);
         btnNowShow = findViewById(R.id.btnNowShow);
         bottomNavigationView = findViewById(R.id.bottom_nav);
+        btnBookingMovie = findViewById(R.id.idBookingMovie);
+    }
 
-
+    private void setEvent() {
         btnNowShow.setOnClickListener(v -> {
-//            setSlideCenter(listMovieNowShows);
-            // set backgroundTint cho kieu drawable choose
             btnNowShow.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.choose));
             btnComingSoon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.unchoose));
+            btnBookingMovie.setVisibility(View.VISIBLE);
             changeMovie(listMovieNowShows);
         });
         btnComingSoon.setOnClickListener(v -> {
-//            setSlideCenter(listMovieComingSoons);
             btnComingSoon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.choose));
             btnNowShow.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.unchoose));
-            changeMovie(listMovieComingSoons);
+            btnBookingMovie.setVisibility(View.GONE);
+            changeMovie(listMovieComingSoon);
         });
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -127,6 +129,11 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtras(bundle);
                     }
                     activityResultLauncher.launch(intent);
+                }
+                break;
+
+                case R.id.nav_movie: {
+                    System.out.println("Movies");
                 }
                 break;
                 case R.id.nav_personal: {
@@ -151,7 +158,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
-
     }
 
     //---------------------------------------load data-------------------------------------------
@@ -180,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
         listMovies = (List<Movie>) data;
         for (Movie movie : listMovies) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (movie.getReleasedDate().compareTo(String.valueOf(LocalDateTime.now())) < 0) {
+                if (movie.getReleasedDate().compareTo(String.valueOf(LocalDateTime.now())) <= 0) {
                     listMovieNowShows.add(movie);
                 } else {
-                    listMovieComingSoons.add(movie);
+                    listMovieComingSoon.add(movie);
                 }
             }
         }
@@ -200,20 +206,10 @@ public class MainActivity extends AppCompatActivity {
         viewPagerCenter.setOffscreenPageLimit(3);
         viewPagerCenter.setClipToPadding(false);
         viewPagerCenter.setClipChildren(false);
-        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
-        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float r = 1 - Math.abs(position);
-                page.setScaleY(0.9f + r * 0.1f);
-            }
-        });
         MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center, new ICallbackEventClickMovie() {
             @Override
-            public void onSelectMovie(Movie movie) {
-                viewDetailMovie(movie);
-
+            public void onSelectMovie(Object movie) {
+                viewDetailMovie((Movie)movie);
             }
 
         });
@@ -225,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             viewPagerCenter.setCurrentItem(1);
             updateUIMovie(movieAdapter.getItem(1));
         }
-        viewPagerCenter.setPageTransformer(compositePageTransformer);
+        viewPagerCenter.setPageTransformer(Transformer.getTransformer(40));
 
         viewPagerCenter.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -246,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     private void changeMovie(List<Movie> movies) {
         MovieAdapter movieAdapter = new MovieAdapter(this, movies,
                 R.layout.item_slide_center, R.id.item_image_center,
-                movie -> viewDetailMovie(movie));
+                movie -> viewDetailMovie((Movie)movie));
         if (movieAdapter.getItemCount() > 0 && movieAdapter.getItemCount() < 2) {
             updateUIMovie(movieAdapter.getItem(0));
         } else {
@@ -270,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
         listPhotos = HandleMovie.getPhotoOfMovie(listMovies);
         MovieAdapter movieAdapter = new MovieAdapter(this, listMovies,
                 R.layout.item_slide_top, R.id.item_image_top,
-                movie -> viewDetailMovie(movie));
+                movie -> viewDetailMovie((Movie)movie));
         viewPagerTop.setAdapter(movieAdapter);
         indicatorTop.setViewPager(viewPagerTop);
         myRunnable = new SlideRunnable(viewPagerTop, listPhotos);

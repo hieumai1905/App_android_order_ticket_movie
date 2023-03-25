@@ -2,7 +2,9 @@ package com.example.btl_android_apporderticket.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,7 @@ import com.example.btl_android_apporderticket.service.genre.IGenreService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Locale;
 
@@ -73,6 +76,13 @@ public class DetailMovieActivity extends Activity {
             getCast(movieShow.getMovieId());
             tvCountryDetailMovie.setText(movieShow.getCountry());
             Glide.with(this).load(movieShow.getPoster()).centerCrop().into(imgPosterDetailMovie);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (movieShow.getReleasedDate().compareTo(String.valueOf(LocalDateTime.now())) > 0) {
+                    btnBookTicketDetailMovie.setVisibility(View.GONE);
+                } else {
+                    btnBookTicketDetailMovie.setVisibility(View.VISIBLE);
+                }
+            }
         }
     }
 
@@ -139,6 +149,7 @@ public class DetailMovieActivity extends Activity {
         });
 
         btnBookTicketDetailMovie.setOnClickListener(v -> {
+            System.out.println("Select book movie");
 
         });
     }

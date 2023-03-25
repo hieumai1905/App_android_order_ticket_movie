@@ -34,6 +34,9 @@
         <activity android:name=".activity.PersonalActivity" />
         <activity android:name=".activity.CinemaActivity" />
         <activity android:name=".activity.DetailMovieActivity" />
+        <activity android:name=".activity.ErrorActivity" />
+        <activity android:name=".activity.ChooseMovieInCinemaActivity" />
+        <activity android:name=".activity.ChooseSeatActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

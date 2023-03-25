@@ -1,7 +1,8 @@
 package com.example.btl_android_apporderticket.activity;
 
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGOUT_CODE;
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.UPDATE_ACCOUNT_RESULT_CODE;
+
+import static com.example.btl_android_apporderticket.config.Configuration.LOGOUT_CODE;
+import static com.example.btl_android_apporderticket.config.Configuration.UPDATE_ACCOUNT_RESULT_CODE;
 
 import android.app.Activity;
 import android.app.Dialog;

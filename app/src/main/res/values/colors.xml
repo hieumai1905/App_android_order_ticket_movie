@@ -13,4 +13,5 @@
     <color name="red">#D63A09</color>
     <color name="text_color_gray">#979291</color>
     <color name="default_button">#474444</color>
+    <color name="seat_default">#BFBBBB</color>
 </resources>

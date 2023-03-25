@@ -1,6 +1,7 @@
 package com.example.btl_android_apporderticket.api;
 
 
+import com.example.btl_android_apporderticket.config.Configuration;
 import com.example.btl_android_apporderticket.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,9 +21,9 @@ import retrofit2.http.Query;
 
 public interface UserAPI {
 
-    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
-    UserAPI userAPI = new Retrofit.Builder().baseUrl("http://192.168.0.101:8080/api/").addConverterFactory(GsonConverterFactory.create(gson)).build().create(UserAPI.class);
+    UserAPI userAPI = new Retrofit.Builder().baseUrl(Configuration.URL_BASE)
+            .addConverterFactory(GsonConverterFactory.create(Configuration.gson)).build().create(UserAPI.class);
 
     @GET("users")
     Call<List<User>> getAllUsers();

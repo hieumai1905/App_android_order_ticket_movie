@@ -1,6 +1,6 @@
 package com.example.btl_android_apporderticket.activity;
 
-import static com.example.btl_android_apporderticket.definefinal.RequestCode.LOGIN_RESULT_CODE;
+import static com.example.btl_android_apporderticket.config.Configuration.LOGIN_RESULT_CODE;
 
 import android.app.Activity;
 import android.content.Intent;
