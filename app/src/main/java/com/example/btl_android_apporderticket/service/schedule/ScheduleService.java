@@ -11,13 +11,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ScheduleService implements IScheduleService {
-    private static ScheduleService instance;
+    private static IScheduleService instance;
 
     private ScheduleService() {
 
     }
 
-    public static ScheduleService getInstanceScheduleService() {
+    public static IScheduleService getInstanceScheduleService() {
         if (instance == null) {
             instance = new ScheduleService();
         }

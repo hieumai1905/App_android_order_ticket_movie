@@ -14,12 +14,12 @@ import retrofit2.Response;
 
 public class MovieService implements IMovieService {
 
-    private static MovieService instance;
+    private static IMovieService instance;
 
     private MovieService() {
     }
 
-    public static MovieService getInstanceMovieService() {
+    public static IMovieService getInstanceMovieService() {
         if (instance == null) {
             instance = new MovieService();
         }

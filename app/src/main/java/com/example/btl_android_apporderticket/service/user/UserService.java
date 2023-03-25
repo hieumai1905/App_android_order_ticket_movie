@@ -15,13 +15,13 @@ import retrofit2.Response;
 public class UserService implements IUserService {
 
 
-    private static UserService _instance;
+    private static IUserService _instance;
 
     private UserService() {
 
     }
 
-    public static UserService getInstanceUserService() {
+    public static IUserService getInstanceUserService() {
         if (_instance == null) {
             _instance = new UserService();
         }

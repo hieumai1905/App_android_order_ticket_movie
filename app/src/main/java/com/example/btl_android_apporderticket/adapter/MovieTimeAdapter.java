@@ -1,6 +1,8 @@
 package com.example.btl_android_apporderticket.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,9 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.btl_android_apporderticket.R;
+import com.example.btl_android_apporderticket.activity.DetailMovieActivity;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
-import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
+import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
+import com.example.btl_android_apporderticket.service.movie.MovieService;
 import com.example.btl_android_apporderticket.viewmodel.MovieTime;
 
 import java.util.List;
@@ -23,9 +28,9 @@ public class MovieTimeAdapter extends RecyclerView.Adapter<MovieTimeAdapter.Movi
 
     private Context context;
     private List<MovieTime> listMovieTime;
-    private ICallbackEventClickMovie callbackEventClickMovie;
+    private ICallbackEventClick callbackEventClickMovie;
 
-    public MovieTimeAdapter(Context context, ICallbackEventClickMovie callbackEventClickMovie) {
+    public MovieTimeAdapter(Context context, ICallbackEventClick callbackEventClickMovie) {
         this.context = context;
         this.callbackEventClickMovie = callbackEventClickMovie;
     }
@@ -52,17 +57,40 @@ public class MovieTimeAdapter extends RecyclerView.Adapter<MovieTimeAdapter.Movi
             holder.rvTime.setLayoutManager(manager);
 
             TimeAdapter timeAdapter = new TimeAdapter();
-            timeAdapter.setData(movieTime.getScheduleListString(), new ICallbackEventClickMovie() {
+            timeAdapter.setData(movieTime.getScheduleList(), new ICallbackEventClick() {
                 @Override
-                public void onSelectMovie(Object o) {
-                    callbackEventClickMovie.onSelectMovie(o);
+                public void onSelectObject(Object o) {
+                    callbackEventClickMovie.onSelectObject(o);
                 }
             });
             holder.rvTime.setAdapter(timeAdapter);
+            holder.tvDetail.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    System.out.println("View detail movie id: " + movieTime.getIdMovie());
+                    MovieService.getInstanceMovieService().getById(movieTime.getIdMovie(), new IServiceCallback<Movie>() {
+                        @Override
+                        public void onDataReceived(Movie data) {
+                            Intent intent = new Intent(context, DetailMovieActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("movie-show", data);
+                            intent.putExtras(bundle);
+                            context.startActivity(intent);
+                        }
+
+                        @Override
+                        public void onRequestFailed(Throwable t) {
+                            System.out.println("View detail movie failed: " + t.getMessage());
+                        }
+                    });
+                }
+            });
             holder.rvTime.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
                 @Override
                 public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
                     DataBuffer.ID_MOVIE_CURRENT = movieTime.getIdMovie();
+                    DataBuffer.movieCurrent = movieTime.getMovie();
                     return false;
                 }
 
@@ -86,12 +114,14 @@ public class MovieTimeAdapter extends RecyclerView.Adapter<MovieTimeAdapter.Movi
 
     public class MovieInCinemaViewHolder extends RecyclerView.ViewHolder {
         private TextView tvNameMovie;
+        private TextView tvDetail;
         private RecyclerView rvTime;
 
         public MovieInCinemaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNameMovie = itemView.findViewById(R.id.tvNameMovieInCinema);
             rvTime = itemView.findViewById(R.id.rvSelectTime);
+            tvDetail = itemView.findViewById(R.id.tvViewDetailMovie);
         }
     }
 }

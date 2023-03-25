@@ -1,21 +1,21 @@
 package com.example.btl_android_apporderticket.viewmodel;
 
-import com.example.btl_android_apporderticket.handle.getdata.HandleTime;
+import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Schedule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieTime {
     private String idMovie;
     private String nameMovie;
+    private Movie movie;
 
     private List<Schedule> scheduleList;
 
     public MovieTime() {
     }
 
-    public MovieTime(String idMovie, String nameMovie, List<Schedule> scheduleList) {
+    public MovieTime(String idMovie, String nameMovie, Movie movie, List<Schedule> scheduleList) {
         this.idMovie = idMovie;
         this.nameMovie = nameMovie;
         this.scheduleList = scheduleList;
@@ -45,11 +45,11 @@ public class MovieTime {
         this.scheduleList = scheduleList;
     }
 
-    public List<String> getScheduleListString() {
-        List<String> scheduleListString = new ArrayList<>();
-        for (Schedule schedule : this.scheduleList) {
-            scheduleListString.add(HandleTime.getHourAndMinute(schedule.getShowTime()));
-        }
-        return scheduleListString;
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

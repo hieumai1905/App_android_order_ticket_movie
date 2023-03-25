@@ -16,7 +16,7 @@ import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieTimeAdapter;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
 import com.example.btl_android_apporderticket.handle.getdata.HandleTime;
-import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Cinema;
 import com.example.btl_android_apporderticket.model.Movie;
@@ -94,7 +94,7 @@ public class ChooseMovieInCinemaActivity extends Activity {
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onDataReceived(Iterable<Schedule> data) {
-                        setMovieTime(movie.getMovieId(), movie.getTitle(), data);
+                        setMovieTime(movie.getMovieId(), movie.getTitle(), movie, data);
                         if (count[0] == listMovieOfCinema.size() - 1) {
                             loadData();
                         } else {
@@ -113,19 +113,21 @@ public class ChooseMovieInCinemaActivity extends Activity {
         }
     }
 
-    private void setMovieTime(String movieId, String title, Object data) {
-        listMovieTime.add(new MovieTime(movieId, title, (List<Schedule>) data));
+    private void setMovieTime(String movieId, String title, Movie movie, Object data) {
+        listMovieTime.add(new MovieTime(movieId, title, movie, (List<Schedule>) data));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadData() {
-        movieTimeAdapter = new MovieTimeAdapter(ChooseMovieInCinemaActivity.this, new ICallbackEventClickMovie() {
+        movieTimeAdapter = new MovieTimeAdapter(ChooseMovieInCinemaActivity.this, new ICallbackEventClick() {
             @Override
-            public void onSelectMovie(Object o) {
-                System.out.println("Time current : " + o.toString());
-                System.out.println("Movie current : " + DataBuffer.ID_MOVIE_CURRENT);
+            public void onSelectObject(Object o) {
+                System.out.println("Schedule current has id is : " + o.toString());
+                System.out.println("Movie current has id is : " + DataBuffer.ID_MOVIE_CURRENT);
                 Intent intent = new Intent(ChooseMovieInCinemaActivity.this, ChooseSeatActivity.class);
-                intent.putExtra("time-current", o.toString());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cinema-current", cinemaCurrent);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -147,7 +149,7 @@ public class ChooseMovieInCinemaActivity extends Activity {
                 }
             }
             if (scheduleList.size() > 0)
-                listMovieTimeCurrent.add(new MovieTime(movieTime.getIdMovie(), movieTime.getNameMovie(), scheduleList));
+                listMovieTimeCurrent.add(new MovieTime(movieTime.getIdMovie(), movieTime.getNameMovie(), movieTime.getMovie(), scheduleList));
         }
 
         return listMovieTimeCurrent;

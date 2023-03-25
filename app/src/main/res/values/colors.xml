@@ -14,4 +14,5 @@
     <color name="text_color_gray">#979291</color>
     <color name="default_button">#474444</color>
     <color name="seat_default">#BFBBBB</color>
+    <color name="booked">#D52626</color>
 </resources>

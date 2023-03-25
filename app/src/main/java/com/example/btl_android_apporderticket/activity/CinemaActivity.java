@@ -117,16 +117,19 @@ public class CinemaActivity extends Activity {
         CinemaAdapter adapterCinema = new CinemaAdapter(this, listCinemaCurrent);
         lvCinema.setAdapter(adapterCinema);
         lvCinema.setOnItemClickListener((parent, view, position, id) -> {
-            Cinema cinema = listCinemaCurrent.get(position);
-            DataBuffer.ID_CINEMA_CURRENT = cinema.getIdCinema();
-            System.out.println(cinema.toString());
-
-            Intent intent = new Intent(CinemaActivity.this, ChooseMovieInCinemaActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("cinema-current", cinema);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
+            if(DataBuffer.userCurrent != null){
+                Cinema cinema = listCinemaCurrent.get(position);
+                DataBuffer.ID_CINEMA_CURRENT = cinema.getIdCinema();
+                System.out.println(cinema.toString());
+                Intent intent = new Intent(CinemaActivity.this, ChooseMovieInCinemaActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cinema-current", cinema);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(CinemaActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
         });
         tvBackCinema.setOnClickListener(v -> {
             finish();

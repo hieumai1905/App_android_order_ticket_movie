@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.model.Movie;
 
 import java.util.List;
@@ -19,15 +19,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private List<Movie> listMovies;
     private final Context context;
-    private ICallbackEventClickMovie callbackEventClickMovie;
+    private ICallbackEventClick callbackEventClick;
     private static int resourceItem, resourceImage;
 
-    public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage, ICallbackEventClickMovie callbackEventClickMovie) {
+    public MovieAdapter(Context context, List<Movie> list, int resourceItem, int resourceImage, ICallbackEventClick callbackEventClick) {
         this.context = context;
         listMovies = list;
         MovieAdapter.resourceItem = resourceItem;
         MovieAdapter.resourceImage = resourceImage;
-        this.callbackEventClickMovie = callbackEventClickMovie;
+        this.callbackEventClick = callbackEventClick;
     }
 
     @NonNull
@@ -50,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 @Override
                 public void onClick(View v) {
                     System.out.println(movie.toString());
-                    callbackEventClickMovie.onSelectMovie(movie);
+                    callbackEventClick.onSelectObject(movie);
                 }
             });
         }

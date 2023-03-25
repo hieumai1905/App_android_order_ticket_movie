@@ -26,7 +26,7 @@ import com.example.btl_android_apporderticket.handle.autorun.SlideRunnable;
 import com.example.btl_android_apporderticket.handle.autorun.Transformer;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
 import com.example.btl_android_apporderticket.handle.getdata.HandleMovie;
-import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Photo;
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
                 case R.id.nav_personal: {
                     System.out.println("Personal");
-                    if (userCurrent == null) {
+                    if (userCurrent == null && DataBuffer.userCurrent == null) {
                         System.out.println("User null");
 
                         // ---------------------------- request login ----------------------------
@@ -149,7 +149,11 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("userCurrent", userCurrent);
+                        if(userCurrent != null){
+                            bundle.putSerializable("userCurrent", userCurrent);
+                        }else{
+                            bundle.putSerializable("userCurrent", DataBuffer.userCurrent);
+                        }
                         intent.putExtras(bundle);
                         activityResultLauncher.launch(intent);
                     }
@@ -206,9 +210,9 @@ public class MainActivity extends AppCompatActivity {
         viewPagerCenter.setOffscreenPageLimit(3);
         viewPagerCenter.setClipToPadding(false);
         viewPagerCenter.setClipChildren(false);
-        MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center, new ICallbackEventClickMovie() {
+        MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center, new ICallbackEventClick() {
             @Override
-            public void onSelectMovie(Object movie) {
+            public void onSelectObject(Object movie) {
                 viewDetailMovie((Movie)movie);
             }
 
@@ -296,10 +300,12 @@ public class MainActivity extends AppCompatActivity {
                 case LOGOUT_CODE: {
                     userCurrent = null;
                     DataBuffer.ID_USER_CURRENT = null;
+                    DataBuffer.userCurrent = null;
                 }
                 break;
                 case UPDATE_ACCOUNT_RESULT_CODE: {
                     userCurrent = (User) Objects.requireNonNull(result.getData()).getSerializableExtra("userCurrent");
+                    DataBuffer.userCurrent = userCurrent;
                 }
                 break;
             }
@@ -317,4 +323,8 @@ public class MainActivity extends AppCompatActivity {
         activityResultLauncher.launch(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
 }

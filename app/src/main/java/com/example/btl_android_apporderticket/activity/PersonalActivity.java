@@ -13,12 +13,15 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.example.btl_android_apporderticket.R;
+import com.example.btl_android_apporderticket.handle.event.ShowDialog;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.User;
 import com.example.btl_android_apporderticket.service.user.IUserService;
@@ -108,12 +111,13 @@ public class PersonalActivity extends Activity {
         EditText edtPasswordCurrent = dialog.findViewById(R.id.edtPasswordCurrent);
         EditText edtPassword = dialog.findViewById(R.id.edtPasswordNew);
         EditText edtConfirmPassword = dialog.findViewById(R.id.edtPasswordConfirmNew);
+        Button btnChangePassword = dialog.findViewById(R.id.btnConfirmChangePassword);
 
         tvCancel.setOnClickListener(v -> {
             dialog.dismiss();
         });
 
-        edtConfirmPassword.setOnClickListener(v -> {
+        btnChangePassword.setOnClickListener(v -> {
 
             String passwordCurrent = edtPasswordCurrent.getText().toString();
             String password = edtPassword.getText().toString();
@@ -137,26 +141,36 @@ public class PersonalActivity extends Activity {
             if (passwordCurrent.equals(UserCurrent.getPassword())) {
                 if (password.equals(confirmPassword)) {
                     UserCurrent.setPassword(password);
-                    userService.update(UserCurrent.getPassword(), UserCurrent, new IServiceCallback<Boolean>() {
+                    userService.update(UserCurrent.getUserId(), UserCurrent, new IServiceCallback<Boolean>() {
                         @Override
                         public void onDataReceived(Boolean data) {
                             if (data) {
-                                System.out.println("-----------------------Change password success-----------------------");
-                                dialog.dismiss();
-
-                                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("userCurrent", UserCurrent);
-                                intent.putExtras(bundle);
-                                setResult(UPDATE_ACCOUNT_RESULT_CODE, intent);
-                                finish();
+                                ShowDialog.show(PersonalActivity.this, "Notification", "Change password success", "OK", "", new ICallbackEventClick() {
+                                    @Override
+                                    public void onSelectObject(Object o) {
+                                        System.out.println("-----------------------Change password success-----------------------");
+                                        dialog.dismiss();
+                                        Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putSerializable("userCurrent", UserCurrent);
+                                        intent.putExtras(bundle);
+                                        setResult(UPDATE_ACCOUNT_RESULT_CODE, intent);
+                                        finish();
+                                    }
+                                });
                             }
                         }
 
                         @Override
                         public void onRequestFailed(Throwable t) {
                             System.out.println("-----------------------Change password failed-----------------------");
-                            System.out.println(t.getMessage());
+                            ShowDialog.show(PersonalActivity.this, "Notification", "Change password failed", "OK", "Try Again", new ICallbackEventClick() {
+                                @Override
+                                public void onSelectObject(Object o) {
+                                    dialog.dismiss();
+                                    System.out.println(t.getMessage());
+                                }
+                            });
                         }
                     });
                 } else {

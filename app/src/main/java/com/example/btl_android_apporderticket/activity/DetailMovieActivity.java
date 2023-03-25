@@ -63,7 +63,7 @@ public class DetailMovieActivity extends Activity {
         Movie movieShow = (Movie) intent.getSerializableExtra("movie-show");
         if (movieShow != null) {
             tvTitleDetailMovie.setText(movieShow.getTitle());
-            tvDurationDetailMovie.setText(movieShow.getDuration() + "minutes");
+            tvDurationDetailMovie.setText(movieShow.getDuration() + " minutes");
             getGenre(movieShow.getGenreId());
             tvDescriptionDetailMovie.setText(movieShow.getDescription());
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -150,7 +150,6 @@ public class DetailMovieActivity extends Activity {
 
         btnBookTicketDetailMovie.setOnClickListener(v -> {
             System.out.println("Select book movie");
-
         });
     }
 }

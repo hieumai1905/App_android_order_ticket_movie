@@ -10,18 +10,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
-import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClickMovie;
+import com.example.btl_android_apporderticket.handle.getdata.HandleTime;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
+import com.example.btl_android_apporderticket.model.Schedule;
 
 import java.util.List;
 
 public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeViewHolder> {
 
-    private List<String> timeShowMovies;
-    private ICallbackEventClickMovie callbackEventClickMovie;
+    private List<Schedule> scheduleList;
+    private ICallbackEventClick callbackEventClick;
 
-    public void setData(List<String> list, ICallbackEventClickMovie callbackEventClickMovie) {
-        this.timeShowMovies = list;
-        this.callbackEventClickMovie = callbackEventClickMovie;
+    public void setData(List<Schedule> scheduleList, ICallbackEventClick callbackEventClickMovie) {
+        this.scheduleList = scheduleList;
+        this.callbackEventClick = callbackEventClickMovie;
         notifyDataSetChanged();
     }
 
@@ -34,20 +36,21 @@ public class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.TimeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TimeViewHolder holder, int position) {
-        String time = timeShowMovies.get(position);
+        String time = HandleTime.getHourAndMinute(scheduleList.get(position).getShowTime());
         if (time != null) {
             holder.btnTime.setText(time);
             holder.btnTime.setOnClickListener(v -> {
-                DataBuffer.TIME_CURRENT = time;
-                callbackEventClickMovie.onSelectMovie(time);
+                DataBuffer.ID_SCHEDULER_CURRENT = time;
+                DataBuffer.scheduleCurrent = scheduleList.get(position);
+                callbackEventClick.onSelectObject(scheduleList.get(position).getScheduleId());
             });
         }
     }
 
     @Override
     public int getItemCount() {
-        if (timeShowMovies != null)
-            return timeShowMovies.size();
+        if (scheduleList != null)
+            return scheduleList.size();
         return 0;
     }
 

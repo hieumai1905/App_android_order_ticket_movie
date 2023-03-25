@@ -1,6 +1,8 @@
 package com.example.btl_android_apporderticket.model;
 
-public class Schedule {
+import java.io.Serializable;
+
+public class Schedule implements Serializable {
     private String scheduleId;
     private String showTime;
     private String endTime;

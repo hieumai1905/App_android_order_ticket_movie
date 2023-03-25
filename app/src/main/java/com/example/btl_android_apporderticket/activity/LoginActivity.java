@@ -16,10 +16,13 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.example.btl_android_apporderticket.R;
+import com.example.btl_android_apporderticket.handle.event.ShowDialog;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.handle.system.HandleKeyBoard;
 import com.example.btl_android_apporderticket.model.User;
+import com.example.btl_android_apporderticket.service.user.IUserService;
 import com.example.btl_android_apporderticket.service.user.UserService;
 
 public class LoginActivity extends Activity {
@@ -30,7 +33,7 @@ public class LoginActivity extends Activity {
     private Button btnLogin;
     private Button btnRegister;
 
-    private UserService userService;
+    private IUserService userService;
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
 
@@ -58,7 +61,6 @@ public class LoginActivity extends Activity {
         closeUILogin.setOnClickListener(v -> {
             finish();
         });
-
         btnRegister.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -106,12 +108,25 @@ public class LoginActivity extends Activity {
                     intent.putExtras(bundle);
                     setResult(LOGIN_RESULT_CODE, intent);
                     DataBuffer.ID_USER_CURRENT = data.getUserId();
-                    finish();
+                    DataBuffer.userCurrent = data;
+                    ShowDialog.show(LoginActivity.this, "Notification", "Login successfully", "OK", "You are ready to book your ticket!", new ICallbackEventClick() {
+                        @Override
+                        public void onSelectObject(Object o) {
+                            finish();
+                        }
+                    });
                 }
 
                 @Override
                 public void onRequestFailed(Throwable t) {
                     System.out.println("---------------Login failed-------------------");
+                    ShowDialog.show(LoginActivity.this, "Notification", "Email or Password invalid!", "Try Again", "", new ICallbackEventClick() {
+                        @Override
+                        public void onSelectObject(Object o) {
+                            edtEmail.setFocusable(true);
+                            clearInput();
+                        }
+                    });
                 }
             });
         } catch (Exception e) {
@@ -137,5 +152,4 @@ public class LoginActivity extends Activity {
         }
         return true;
     }
-
 }

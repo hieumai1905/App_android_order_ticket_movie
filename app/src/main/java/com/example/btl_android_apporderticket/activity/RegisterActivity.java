@@ -8,12 +8,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.btl_android_apporderticket.R;
+import com.example.btl_android_apporderticket.handle.event.ShowDialog;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.User;
 import com.example.btl_android_apporderticket.service.user.IUserService;
@@ -21,6 +22,7 @@ import com.example.btl_android_apporderticket.service.user.UserService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends Activity {
     private TextView tvExitRegister;
@@ -104,13 +106,24 @@ public class RegisterActivity extends Activity {
                 @Override
                 public void onDataReceived(User data) {
                     System.out.println("---------------------Register success---------------------");
-                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                    finish();
+                    ShowDialog.show(RegisterActivity.this, "Notification", "Register successfully", "OK", "Login now!", new ICallbackEventClick() {
+                        @Override
+                        public void onSelectObject(Object o) {
+                            finish();
+                        }
+                    });
                 }
 
                 @Override
                 public void onRequestFailed(Throwable t) {
                     System.out.println("---------------------Register failed---------------------");
+                    ShowDialog.show(RegisterActivity.this, "Notification", "Register failed", "OK", "Email is already exist!", new ICallbackEventClick() {
+                        @Override
+                        public void onSelectObject(Object o) {
+                            edtEmail.setError("Email is already exist");
+                            edtEmail.setFocusable(true);
+                        }
+                    });
                 }
             });
         } catch (Exception e) {
@@ -135,26 +148,60 @@ public class RegisterActivity extends Activity {
             edtName.setError("Vui lòng nhập tên");
             edtName.setFocusable(true);
             return false;
+        } else {
+            String regex = "^[a-zA-Z\\s]*$";
+            Pattern pattern = Pattern.compile(regex);
+            if (!pattern.matcher(edtName.getText().toString()).matches()) {
+                edtName.setError("Tên không hợp lệ");
+                edtName.setFocusable(true);
+                return false;
+            }
         }
         if (edtEmail.getText().toString().isEmpty()) {
             edtEmail.setError("Vui lòng nhập email");
             edtName.setFocusable(true);
             return false;
+        } else {
+            String regex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$";
+            Pattern pattern = Pattern.compile(regex);
+            if (!pattern.matcher(edtEmail.getText().toString()).matches()) {
+                edtEmail.setError("Email không hợp lệ");
+                edtEmail.setFocusable(true);
+                return false;
+            }
         }
         if (edtPassword.getText().toString().isEmpty()) {
             edtPassword.setError("Vui lòng nhập mật khẩu");
             edtPassword.setFocusable(true);
             return false;
+        } else {
+            if (edtPassword.getText().toString().length() < 6) {
+                edtPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
+                edtPassword.setFocusable(true);
+                return false;
+            }
         }
         if (edtConfirmPassword.getText().toString().isEmpty()) {
             edtConfirmPassword.setError("Vui lòng nhập lại mật khẩu");
             edtConfirmPassword.setFocusable(true);
             return false;
+        } else {
+            if (edtPassword.getText().toString().length() < 6) {
+                edtPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
+                edtPassword.setFocusable(true);
+                return false;
+            }
         }
         if (edtPhone.getText().toString().isEmpty()) {
             edtPhone.setError("Vui lòng nhập số điện thoại");
             edtPhone.setFocusable(true);
             return false;
+        } else {
+            if (edtPhone.getText().toString().length() != 10) {
+                edtPhone.setError("Số điện thoại không hợp lệ");
+                edtPhone.setFocusable(true);
+                return false;
+            }
         }
         if (edtAddress.getText().toString().isEmpty()) {
             edtAddress.setError("Vui lòng nhập địa chỉ");
@@ -165,6 +212,12 @@ public class RegisterActivity extends Activity {
             edtBirthday.setError("Vui lòng nhập tuổi");
             edtBirthday.setFocusable(true);
             return false;
+        } else if (Integer.parseInt(edtBirthday.getText().toString()) < 16) {
+            edtBirthday.setFocusable(true);
+            edtBirthday.setError("Bạn chưa đủ 16 tuổi");
+        } else if (Integer.parseInt(edtBirthday.getText().toString()) > 90) {
+            edtBirthday.setFocusable(true);
+            edtBirthday.setError("Bạn đã quá 90 tuổi");
         }
         return true;
     }
