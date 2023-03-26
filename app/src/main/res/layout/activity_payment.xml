@@ -116,7 +116,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1sp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="329dp"
         android:background="#636261" />
     />
 
@@ -125,7 +125,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="314dp"
+        android:layout_marginTop="317dp"
         android:orientation="horizontal">
 
         <TextView

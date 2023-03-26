@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieSeatAdapter;
+import com.example.btl_android_apporderticket.handle.event.ShowDialog;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
 import com.example.btl_android_apporderticket.handle.getdata.HandleTime;
+import com.example.btl_android_apporderticket.handle.mycallback.ICallbackEventClick;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Cinema;
 import com.example.btl_android_apporderticket.model.Invoice;
@@ -22,6 +26,7 @@ import com.example.btl_android_apporderticket.model.Movie;
 import com.example.btl_android_apporderticket.model.Schedule;
 import com.example.btl_android_apporderticket.service.invoice.IInvoiceService;
 import com.example.btl_android_apporderticket.service.invoice.InvoiceService;
+import com.example.btl_android_apporderticket.service.seat.SeatService;
 import com.example.btl_android_apporderticket.viewmodel.MovieTicket;
 
 import java.text.NumberFormat;
@@ -32,6 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okio.Buffer;
+
 public class PaymentActivity extends Activity {
 
     private TextView tvBackPayment;
@@ -41,6 +48,7 @@ public class PaymentActivity extends Activity {
     private TextView tvCalendar;
     private TextView tvNumberTicket;
     private TextView tvTotalPrice;
+    private ImageView imgMovieBooking;
     private ListView lvItemTicket;
     private Button btnOrder;
     private RadioGroup radioGroup;
@@ -81,7 +89,7 @@ public class PaymentActivity extends Activity {
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         String formattedString = formatter.format(totalPrice);
         tvTotalPrice.setText(formattedString);
-
+        Glide.with(this).load(movie.getPoster()).into(imgMovieBooking);
         List<MovieTicket> listMovieTicket = new ArrayList<>();
         for (String seat : listSeat) {
             listMovieTicket.add(new MovieTicket(movie.getTitle(), "+" + seat));
@@ -97,6 +105,7 @@ public class PaymentActivity extends Activity {
         tvAgeRating = findViewById(R.id.tvAgeRatingMovie);
         tvAddressCinema = findViewById(R.id.tvAddressCinema);
         tvCalendar = findViewById(R.id.tvDateMovie);
+        imgMovieBooking = findViewById(R.id.imgMovieBooking);
         tvNumberTicket = findViewById(R.id.tvNumberTicket);
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         btnOrder = findViewById(R.id.btnBookTicket);
@@ -117,7 +126,12 @@ public class PaymentActivity extends Activity {
                 methodPayment = selectedRadioButton.getText().toString();
                 payment(methodPayment);
             } else {
+                ShowDialog.show(this, "Notification", "Please choose method payment!", "OK", "", new ICallbackEventClick() {
+                    @Override
+                    public void onSelectObject(Object o) {
 
+                    }
+                });
             }
         });
     }
@@ -132,6 +146,7 @@ public class PaymentActivity extends Activity {
                 public void onDataReceived(Invoice data) {
                     invoice = data;
                     System.out.println("Payment success: " + invoice.toString());
+                    updateSeat();
                 }
 
                 @Override
@@ -139,6 +154,56 @@ public class PaymentActivity extends Activity {
                     System.out.println("Payment failed");
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateSeat() {
+        Intent intent = getIntent();
+        List<String> listSeat = (List<String>) intent.getSerializableExtra("seat");
+        Schedule schedule = (Schedule) intent.getSerializableExtra("schedule");
+        List<Integer> rowNumberSeat = new ArrayList<>();
+        for (String seat : listSeat) {
+            if (seat.charAt(0) == 'A') {
+                rowNumberSeat.add(Integer.parseInt(seat.charAt(1) + ""));
+            } else if (seat.charAt(0) == 'B') {
+                rowNumberSeat.add(Integer.parseInt(seat.charAt(1) + "") + 6);
+            } else if (seat.charAt(0) == 'C') {
+                rowNumberSeat.add(Integer.parseInt(seat.charAt(1) + "") + 12);
+            } else if (seat.charAt(0) == 'D') {
+                rowNumberSeat.add(Integer.parseInt(seat.charAt(1) + "") + 18);
+            } else if (seat.charAt(0) == 'E') {
+                rowNumberSeat.add(Integer.parseInt(seat.charAt(1) + "") + 24);
+            }
+        }
+        System.out.println(rowNumberSeat);
+
+        try {
+            for (int i = 0; i < rowNumberSeat.size(); i++) {
+                int finalI = i;
+                SeatService.getInstanceSeatService().updateSeatOfSchedule(schedule.getScheduleId(), String.valueOf(rowNumberSeat.get(i)), new IServiceCallback<Boolean>() {
+                    @Override
+                    public void onDataReceived(Boolean data) {
+                        System.out.println("Update seat success");
+                        if (finalI == rowNumberSeat.size() - 1) {
+                            ShowDialog.show(PaymentActivity.this, "Notification", "Order successfully", "OK", "Back to home", new ICallbackEventClick() {
+                                @Override
+                                public void onSelectObject(Object o) {
+                                    Intent intent = new Intent(PaymentActivity.this, MainActivity.class);
+                                    DataBuffer.STATUS_APP = 1;
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onRequestFailed(Throwable t) {
+                        System.out.println("Update seat failed");
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

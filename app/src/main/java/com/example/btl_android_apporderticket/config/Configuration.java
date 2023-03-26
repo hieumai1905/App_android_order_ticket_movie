@@ -10,7 +10,7 @@ public class Configuration {
     public static final int LOGOUT_CODE = 50003;
     public static final int UPDATE_ACCOUNT_RESULT_CODE = 50004;
 
-    public static final String URL_BASE = "http://192.168.0.101:8080/api/";
+    public static final String URL_BASE = "http://192.168.99.242:8080/api/";
     public static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
 }

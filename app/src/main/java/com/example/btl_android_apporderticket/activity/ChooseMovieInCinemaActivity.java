@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.btl_android_apporderticket.R;
 import com.example.btl_android_apporderticket.adapter.MovieTimeAdapter;
 import com.example.btl_android_apporderticket.handle.getdata.DataBuffer;
@@ -38,6 +40,7 @@ public class ChooseMovieInCinemaActivity extends Activity {
     private RecyclerView rvMovieTime;
     private Cinema cinemaCurrent;
     private List<Movie> listMovieOfCinema;
+    private ImageView imageViewCinema;
 
     private IScheduleService scheduleService;
     private List<MovieTime> listMovieTime;
@@ -59,6 +62,7 @@ public class ChooseMovieInCinemaActivity extends Activity {
         tvCinemaAddress = findViewById(R.id.tvCinemaAddress);
         tvCinemaPhone = findViewById(R.id.tvCinemaPhone);
         tvBackDetailMovie = findViewById(R.id.tvBackDetailMovie);
+        imageViewCinema = findViewById(R.id.imageViewCinema);
     }
 
     private void setEvent() {
@@ -77,6 +81,7 @@ public class ChooseMovieInCinemaActivity extends Activity {
         tvCinemaName.setText(cinemaCurrent.getNameCinema());
         tvCinemaAddress.setText(cinemaCurrent.getAddressCinema());
         tvCinemaPhone.setText(cinemaCurrent.getPhoneCinema());
+        Glide.with(ChooseMovieInCinemaActivity.this).load(cinemaCurrent.getImageCinema()).into(imageViewCinema);
         getListMovieOfCinemaToDay();
         getTimeShowForMovie();
     }
@@ -101,7 +106,6 @@ public class ChooseMovieInCinemaActivity extends Activity {
                             count[0]++;
                         }
                     }
-
                     @Override
                     public void onRequestFailed(Throwable t) {
                         System.out.println("onRequestFailed: " + t.getMessage());
@@ -151,7 +155,6 @@ public class ChooseMovieInCinemaActivity extends Activity {
             if (scheduleList.size() > 0)
                 listMovieTimeCurrent.add(new MovieTime(movieTime.getIdMovie(), movieTime.getNameMovie(), movieTime.getMovie(), scheduleList));
         }
-
         return listMovieTimeCurrent;
     }
 }

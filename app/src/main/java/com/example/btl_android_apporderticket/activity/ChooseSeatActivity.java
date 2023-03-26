@@ -208,17 +208,6 @@ public class ChooseSeatActivity extends Activity {
         });
     }
 
-    private void setPrice() {
-        if (quantitySeat > 0) {
-            NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            String formattedString = formatter.format(quantitySeat * scheduleCurrent.getPrice());
-            tvTotalPrice.setText(formattedString);
-            btnFinishChooseSeat.setEnabled(true);
-        } else {
-            tvTotalPrice.setText("0đ");
-            btnFinishChooseSeat.setEnabled(false);
-        }
-    }
 
     private void selectSeat(int number, String row, boolean choose) {
         if (choose) {
@@ -233,6 +222,18 @@ public class ChooseSeatActivity extends Activity {
             tvListSeatSelected.setText(seatSelected.toString());
         } else {
             tvListSeatSelected.setText("");
+        }
+    }
+
+    private void setPrice() {
+        if (quantitySeat > 0) {
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
+            String formattedString = formatter.format(quantitySeat * scheduleCurrent.getPrice());
+            tvTotalPrice.setText(formattedString);
+            btnFinishChooseSeat.setEnabled(true);
+        } else {
+            tvTotalPrice.setText("0đ");
+            btnFinishChooseSeat.setEnabled(false);
         }
     }
 

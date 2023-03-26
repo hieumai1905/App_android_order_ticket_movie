@@ -6,4 +6,5 @@ import com.example.btl_android_apporderticket.service.IGeneralService;
 
 public interface ISeatService extends IGeneralService<Seat, Integer> {
     void getAllSeatByIdSchedule(String idSchedule, IServiceCallback<Iterable<Seat>> callback);
+    void updateSeatOfSchedule(String scheduleId, String rowNumber, IServiceCallback<Boolean> callback);
 }

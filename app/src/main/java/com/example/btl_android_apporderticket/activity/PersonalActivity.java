@@ -86,6 +86,11 @@ public class PersonalActivity extends Activity {
         tvChangePassword.setOnClickListener(v -> {
             showDialogChangePassword();
         });
+
+        tvHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(PersonalActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void showDialogChangePassword() {

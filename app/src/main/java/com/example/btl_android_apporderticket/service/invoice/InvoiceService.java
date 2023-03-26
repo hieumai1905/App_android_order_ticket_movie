@@ -6,6 +6,8 @@ import com.example.btl_android_apporderticket.api.InvoiceAPI;
 import com.example.btl_android_apporderticket.handle.mycallback.IServiceCallback;
 import com.example.btl_android_apporderticket.model.Invoice;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,5 +62,24 @@ public class InvoiceService implements IInvoiceService {
     @Override
     public void remove(String key, IServiceCallback<Boolean> callback) {
 
+    }
+
+    @Override
+    public void getInvoiceByUserId(String userId, IServiceCallback<Iterable<Invoice>> callback) {
+        InvoiceAPI.invoiceAPI.getInvoiceByUserId(userId).enqueue(new Callback<List<Invoice>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Invoice>> call, @NonNull Response<List<Invoice>> response) {
+                if (response.isSuccessful()) {
+                    callback.onDataReceived(response.body());
+                } else {
+                    callback.onRequestFailed(new Exception("Response code: " + response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Invoice>> call, Throwable t) {
+                callback.onRequestFailed(t);
+            }
+        });
     }
 }

@@ -75,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this, StartActivity.class));
+        if (DataBuffer.STATUS_APP == 0) {
+            DataBuffer.STATUS_APP = 1;
+            startActivity(new Intent(this, StartActivity.class));
+        }
+
         initApp();
         setEvent();
         loadData();
@@ -134,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.nav_movie: {
                     System.out.println("Movies");
+                    // ---------------------------- request Movie ----------------------------
+                    Intent intent = new Intent(MainActivity.this, ShowMovieActivity.class);
+                    startActivity(intent);
                 }
                 break;
                 case R.id.nav_personal: {
@@ -213,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
         MovieAdapter movieAdapter = new MovieAdapter(this, listMoviesCurrents, R.layout.item_slide_center, R.id.item_image_center, new ICallbackEventClick() {
             @Override
             public void onSelectObject(Object movie) {
-                viewDetailMovie((Movie)movie);
+                viewDetailMovie((Movie) movie);
+                DataBuffer.movieCurrent = (Movie) movie;
             }
 
         });

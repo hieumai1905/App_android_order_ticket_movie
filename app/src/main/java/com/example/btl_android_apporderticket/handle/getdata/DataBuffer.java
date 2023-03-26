@@ -12,4 +12,5 @@ public class DataBuffer {
     public static Movie movieCurrent;
     public static Schedule scheduleCurrent;
     public static User userCurrent;
+    public static int STATUS_APP = 0;
 }

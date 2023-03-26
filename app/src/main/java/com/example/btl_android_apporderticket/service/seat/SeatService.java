@@ -17,7 +17,7 @@ public class SeatService implements ISeatService {
 
     }
 
-    public static ISeatService getInstanceSeatService() {
+        public static ISeatService getInstanceSeatService() {
         if (_instance == null) {
             _instance = new SeatService();
         }
@@ -41,7 +41,18 @@ public class SeatService implements ISeatService {
 
     @Override
     public void update(Integer key, Seat entity, IServiceCallback<Boolean> callback) {
+        SeatAPI.seatAPI.updateSeat(key, entity).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) callback.onDataReceived(true);
+                else callback.onDataReceived(false);
+            }
 
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onRequestFailed(t);
+            }
+        });
     }
 
     @Override
@@ -62,6 +73,22 @@ public class SeatService implements ISeatService {
 
             @Override
             public void onFailure(Call<List<Seat>> call, Throwable t) {
+                callback.onRequestFailed(t);
+            }
+        });
+    }
+
+    @Override
+    public void updateSeatOfSchedule(String scheduleId, String rowNumber, IServiceCallback<Boolean> callback) {
+        SeatAPI.seatAPI.updateSeatOfSchedule(scheduleId, rowNumber).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) callback.onDataReceived(true);
+                else callback.onDataReceived(false);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 callback.onRequestFailed(t);
             }
         });

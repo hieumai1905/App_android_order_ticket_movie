@@ -38,6 +38,8 @@
         <activity android:name=".activity.ChooseMovieInCinemaActivity" />
         <activity android:name=".activity.ChooseSeatActivity" />
         <activity android:name=".activity.PaymentActivity" />
+        <activity android:name=".activity.HistoryActivity" />
+        <activity android:name=".activity.ShowMovieActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

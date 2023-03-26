@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgPosterDetailMovie"
+            android:id="@+id/imageViewCinema"
             android:layout_width="match_parent"
             android:layout_height="185dp"
             android:scaleType="centerCrop"
@@ -30,10 +30,10 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="383dp"
+        android:layout_width="384dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="-65dp"
+        android:layout_marginTop="-80dp"
         android:orientation="vertical">
 
         <TextView
@@ -76,64 +76,13 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:background="#636261" />
-    />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnCinemaAll"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_margin="4sp"
-            android:backgroundTint="@color/select_nav"
-            android:text="23-T5"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/btnCinemaHaNoi"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_margin="4sp"
-            android:backgroundTint="@color/unchoose"
-            android:text="24-T6"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/btnCinemaHCM"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_margin="4sp"
-            android:backgroundTint="@color/unchoose"
-            android:text="25-T7"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/btnCinemaDaNang"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_margin="4sp"
-            android:backgroundTint="@color/unchoose"
-            android:text="26-CN"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -143,7 +92,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovieInCinema"
+        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="534dp" />
 
 </LinearLayout>
